@@ -6,7 +6,7 @@
 // ============================================
 // i18n — LANGUAGE SYSTEM
 // ============================================
-let currentLang = localStorage.getItem('meshlab-lang') || 'id';
+let currentLang = localStorage.getItem('r24-lang') || 'id';
 let translations = {};
 
 async function loadLanguage(lang) {
@@ -14,7 +14,7 @@ async function loadLanguage(lang) {
         const res = await fetch(`data/lang/${lang}.json`);
         translations = await res.json();
         currentLang = lang;
-        localStorage.setItem('meshlab-lang', lang);
+        localStorage.setItem('r24-lang', lang);
         applyTranslations();
         // Re-render dynamic sections with new language
         if (typeof loadServices === 'function') loadServices();
