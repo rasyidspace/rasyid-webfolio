@@ -1,0 +1,68 @@
+[
+    {
+        "title": "Product Prototype",
+        "description": {
+            "id": "Visualisasi produk 3D yang realistis untuk presentasi, pitching investor, atau pre-production. Dari konsep sketsa menjadi model 3D yang detail dan siap produksi.",
+            "en": "Realistic 3D product visualization for presentations, investor pitching, or pre-production. From concept sketches to detailed, production-ready 3D models."
+        },
+        "tags": ["3D Modeling", "Rendering", "CAD"],
+        "icon": "cube",
+        "featured": false
+    },
+    {
+        "title": "Interior Design",
+        "description": {
+            "id": "Desain interior 3D untuk rumah, kantor, cafe, apartemen, dan komersial. Visualisasi photorealistic yang membantu klien melihat ruangan sebelum direalisasikan.",
+            "en": "3D interior design for homes, offices, cafes, apartments, and commercial spaces. Photorealistic visualization that helps clients see rooms before they are built."
+        },
+        "tags": ["Visualization", "Photorealistic", "Layout"],
+        "icon": "home",
+        "featured": false
+    },
+    {
+        "title": "Product Animation",
+        "description": {
+            "id": "Animasi produk 3D berkualitas tinggi untuk iklan, media sosial, dan presentasi. Termasuk exploded view, assembly animation, dan cinematic product showcase.",
+            "en": "High-quality 3D product animation for ads, social media, and presentations. Includes exploded view, assembly animation, and cinematic product showcase."
+        },
+        "tags": ["Motion", "Cinematic", "Video"],
+        "icon": "video",
+        "featured": false
+    },
+    {
+        "title": "Game Ready Assets",
+        "description": {
+            "id": "Asset 3D yang dioptimasi untuk game — characters, props, environments, vehicles. Low-poly hingga high-poly dengan PBR materials dan proper UV mapping.",
+            "en": "Optimized 3D assets for games — characters, props, environments, vehicles. Low-poly to high-poly with PBR materials and proper UV mapping."
+        },
+        "tags": ["Low Poly", "PBR", "UV Map"],
+        "icon": "tool",
+        "featured": false
+    },
+    {
+        "title": "Game Development",
+        "description": {
+            "id": "Pengembangan game lengkap dari konsep hingga publish. Mendukung platform mobile (Android/iOS), desktop (PC/Mac), serta teknologi immersive AR, VR, dan MR.",
+            "en": "Complete game development from concept to publish. Supporting mobile (Android/iOS), desktop (PC/Mac), and immersive AR, VR, and MR technologies."
+        },
+        "tags": ["Mobile", "Desktop", "AR/VR/MR"],
+        "icon": "monitor",
+        "featured": true,
+        "featuredLabel": "Popular",
+        "platforms": [
+            { "name": "Mobile", "icon": "smartphone" },
+            { "name": "Desktop", "icon": "monitor" },
+            { "name": "XR", "icon": "globe" }
+        ]
+    },
+    {
+        "title": "3D Visualization",
+        "description": {
+            "id": "Render visual 3D berkualitas tinggi untuk berbagai kebutuhan — arsitektur, produk, medical, scientific visualization, dan konten marketing.",
+            "en": "High-quality 3D visual renders for various needs — architecture, product, medical, scientific visualization, and marketing content."
+        },
+        "tags": ["Render", "Visual", "Arch-Viz"],
+        "icon": "globe",
+        "featured": false
+    }
+]

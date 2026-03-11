@@ -1,0 +1,96 @@
+[
+    {
+        "title": "Laundry Interior Visualization",
+        "category": "Interior Design",
+        "filter": "interior",
+        "shortDesc": "Desain interior ruang tamu modern minimalis dengan pencahayaan neon futuristik.",
+        "description": "Desain interior ruang tamu modern minimalis dengan pencahayaan neon futuristik. Menggunakan material kaca dan metal dengan detail tinggi untuk memberikan kesan mewah dan kontemporer.",
+        "thumbnail": "assets/Laundry/after-laundry.png",
+        "images": [
+            "assets/Laundry/before-laundry.png",
+            "assets/Laundry/after-laundry.png",
+            "assets/Laundry/Laundry-1.png",
+            "assets/Laundry/Laundry-2.png"
+        ],
+        "client": "Golden Coin Laundry",
+        "tools": "Blender 3D",
+        "duration": "7 Days"
+    },
+    {
+        "title": "Sci-Fi Scythe",
+        "category": "Game Asset",
+        "filter": "game",
+        "shortDesc": "Prototype produk headphone wireless dengan material realistis dan studio lighting.",
+        "description": "Prototype produk headphone wireless premium dengan material realistis dan studio lighting profesional. Desain ergonomis modern dengan visualisasi 360° untuk presentasi investor.",
+        "thumbnail": "assets/Scythe/after-scythe.png",
+        "images": [
+            "assets/Scythe/before-scythe.png",
+            "assets/Scythe/after-scythe.png"
+        ],
+        "client": "Personal Project",
+        "tools": "Blender 3D",
+        "duration": "2 Weeks"
+    },
+    {
+        "title": "Isometric Design",
+        "category": "3D Design",
+        "filter": "3d-design",
+        "shortDesc": "Environment game fantasi dengan volumetric lighting dan atmosfer dramatis.",
+        "description": "Environment game fantasi dengan volumetric lighting dan atmosfer dramatis. Kastil medieval di pulau terapung dengan detail terrain dan foliage yang kaya.",
+        "thumbnail": "assets/Isometric/after-isometric.png",
+        "images": [
+            "assets/Isometric/before-isometric.png"
+        ],
+        "client": "Personal Project",
+        "tools": "Blender 3D",
+        "duration": "2 Weeks"
+    },
+    {
+        "title": "Smartwatch Exploded View",
+        "category": "Product Animation",
+        "filter": "animation",
+        "shortDesc": "Animasi exploded view smartwatch menampilkan komponen internal secara detail.",
+        "description": "Animasi exploded view smartwatch menampilkan komponen internal secara detail. Cinematic product showcase untuk kampanye pemasaran produk technology.",
+        "thumbnail": "assets/product-animation.png",
+        "images": [
+            "assets/product-animation.png",
+            "assets/product-prototype.png",
+            "assets/interior-design.png"
+        ],
+        "client": "TechWear Co.",
+        "tools": "Blender, After Effects",
+        "duration": "4 Weeks"
+    },
+    {
+        "title": "Immersive XR Interface",
+        "category": "AR / VR",
+        "filter": "xr",
+        "shortDesc": "Antarmuka holografis interaktif untuk pengalaman augmented dan virtual reality.",
+        "description": "Antarmuka holografis interaktif untuk pengalaman augmented dan virtual reality. UI/UX design khusus untuk spatial computing dengan gesture-based interaction.",
+        "thumbnail": "assets/ar-vr-project.png",
+        "images": [
+            "assets/ar-vr-project.png",
+            "assets/game-environment.png",
+            "assets/game-character.png"
+        ],
+        "client": "XR Solutions Inc.",
+        "tools": "Unity, Figma, Blender",
+        "duration": "8 Weeks"
+    },
+    {
+        "title": "Sci-Fi Character Model",
+        "category": "Game Asset",
+        "filter": "game",
+        "shortDesc": "Karakter game sci-fi dengan PBR materials, siap digunakan dalam game engine.",
+        "description": "Karakter game sci-fi dengan full PBR materials, dan skeletal rig. Game-ready asset yang dioptimasi untuk real-time rendering dengan LOD system.",
+        "thumbnail": "assets/game-character.png",
+        "images": [
+            "assets/game-character.png",
+            "assets/game-environment.png",
+            "assets/ar-vr-project.png"
+        ],
+        "client": "Galaxy Games",
+        "tools": "ZBrush, Blender, Substance",
+        "duration": "5 Weeks"
+    }
+]

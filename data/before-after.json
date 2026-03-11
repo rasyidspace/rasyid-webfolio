@@ -1,0 +1,23 @@
+[
+    {
+        "title": "Game Assets",
+        "labelBefore": "Workbench",
+        "labelAfter": "Final Render",
+        "imageBefore": "assets/Scythe/before-scythe.png",
+        "imageAfter": "assets/Scythe/after-scythe.png"
+    },
+    {
+        "title": "Interior Visualization",
+        "labelBefore": "Clay Render",
+        "labelAfter": "Final Render",
+        "imageBefore": "assets/Laundry/before-laundry.png",
+        "imageAfter": "assets/Laundry/after-laundry.png"
+    },
+    {
+        "title": "Isometric Design",
+        "labelBefore": "Before",
+        "labelAfter": "After",
+        "imageBefore": "assets/Isometric/before-isometric.png",
+        "imageAfter": "assets/Isometric/after-isometric.png"
+    }
+]
