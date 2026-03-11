@@ -1,5 +1,6 @@
 /* ============================================
-   MeshLab.id Portfolio — JavaScript
+   R24 Studio Portfolio — JavaScript
+   Core Interactivity & Components
    ============================================ */
 
 // ============================================
@@ -368,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // THEME TOGGLE
     // ============================================
     const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('meshlab-theme') || 'dark';
+    const savedTheme = localStorage.getItem('r24-theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
 
     themeToggle.addEventListener('click', () => {
@@ -376,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const current = document.documentElement.getAttribute('data-theme');
         const next = current === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('meshlab-theme', next);
+        localStorage.setItem('r24-theme', next);
         setTimeout(() => document.body.classList.remove('theme-transitioning'), 500);
     });
 
