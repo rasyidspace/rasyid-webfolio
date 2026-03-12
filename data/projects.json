@@ -3,94 +3,52 @@
         "title": "Laundry Interior Visualization",
         "category": "Interior Design",
         "filter": "interior",
-        "shortDesc": "Desain interior ruang tamu modern minimalis dengan pencahayaan neon futuristik.",
-        "description": "Desain interior ruang tamu modern minimalis dengan pencahayaan neon futuristik. Menggunakan material kaca dan metal dengan detail tinggi untuk memberikan kesan mewah dan kontemporer.",
+        "shortDesc": "A modern laundry interior brought to life through detailed 3D visualization, showcasing an efficient layout and clean contemporary design.",
+        "description": "This project presents a modern laundry interior brought to life through detailed 3D visualization, featuring an efficient layout, carefully arranged machines, and a comfortable waiting area. With realistic materials, balanced lighting, and a clean contemporary aesthetic, the visualization provides a clear preview of the space, allowing clients to experience the atmosphere and functionality of the design before it is built.",
         "thumbnail": "assets/Laundry/after-laundry.png",
         "images": [
-            "assets/Laundry/before-laundry.png",
             "assets/Laundry/after-laundry.png",
+            "assets/Laundry/before-laundry.png",
             "assets/Laundry/Laundry-1.png",
-            "assets/Laundry/Laundry-2.png"
+            "assets/Laundry/Laundry-2.png",
+            "assets/Laundry/Laundry-3.jpg",
+            "assets/Laundry/Laundry-4.jpg",
+            "assets/Laundry/Laundry-5.jpg"
         ],
-        "client": "Golden Coin Laundry",
+        "client": "Universal Supplier Laundry",
         "tools": "Blender 3D",
-        "duration": "7 Days"
+        "duration": "5 Days/Design"
     },
     {
         "title": "Sci-Fi Scythe",
         "category": "Game Asset",
         "filter": "game",
-        "shortDesc": "Prototype produk headphone wireless dengan material realistis dan studio lighting.",
-        "description": "Prototype produk headphone wireless premium dengan material realistis dan studio lighting profesional. Desain ergonomis modern dengan visualisasi 360° untuk presentasi investor.",
-        "thumbnail": "assets/Scythe/after-scythe.png",
+        "shortDesc": "A futuristic sci-fi scythe designed as a high-detail game asset, featuring sharp mechanical forms, glowing energy elements, and a sleek cyber-inspired aesthetic suitable for sci-fi themed games.",
+        "description": "This personal project focuses on creating a high-quality sci-fi weapon asset designed for game environments. The scythe was modeled with sharp mechanical shapes and a futuristic silhouette to emphasize a strong and aggressive visual identity. Materials were developed using Blender’s node-based shading system to create realistic metallic surfaces and glowing emissive energy elements. Through careful texturing, lighting, and rendering, the final result presents a visually striking game asset that highlights both the design and technical workflow suitable for sci-fi game development.",
+        "thumbnail": "assets/Scythe/scythe-1.jpg",
         "images": [
-            "assets/Scythe/before-scythe.png",
-            "assets/Scythe/after-scythe.png"
+            "assets/Scythe/scythe-1.jpg",
+            "assets/Scythe/scythe-2.webp",
+            "assets/Scythe/scythe-3.webp",
+            "assets/Scythe/scythe-workspace.png"
         ],
         "client": "Personal Project",
         "tools": "Blender 3D",
-        "duration": "2 Weeks"
+        "duration": "1 Weeks"
     },
     {
         "title": "Isometric Design",
         "category": "3D Design",
         "filter": "3d-design",
-        "shortDesc": "Environment game fantasi dengan volumetric lighting dan atmosfer dramatis.",
-        "description": "Environment game fantasi dengan volumetric lighting dan atmosfer dramatis. Kastil medieval di pulau terapung dengan detail terrain dan foliage yang kaya.",
+        "shortDesc": "A stylized isometric workspace scene created in 3D, featuring a cozy streaming or gaming setup with soft lighting and a clean minimalist aesthetic.",
+        "description": "This personal project explores the creation of a stylized isometric workspace environment designed with a clean and cozy atmosphere. The scene features a compact gaming or streaming setup including a desk, monitor, laptop, chair, and small decorative elements arranged within a minimal room layout. Each asset was modeled with simplified geometric forms to maintain the stylized aesthetic while preserving recognizable proportions. Materials and colors were carefully chosen to create a soft pastel visual tone, while lighting was adjusted to enhance depth and warmth within the small isometric space. The final render highlights a balanced composition and demonstrates the use of Blender for stylized environment visualization.",
         "thumbnail": "assets/Isometric/after-isometric.png",
         "images": [
-            "assets/Isometric/before-isometric.png"
+            "assets/Isometric/before-isometric.png",
+            "assets/Isometric/after-isometric.png"
         ],
         "client": "Personal Project",
         "tools": "Blender 3D",
         "duration": "2 Weeks"
-    },
-    {
-        "title": "Smartwatch Exploded View",
-        "category": "Product Animation",
-        "filter": "animation",
-        "shortDesc": "Animasi exploded view smartwatch menampilkan komponen internal secara detail.",
-        "description": "Animasi exploded view smartwatch menampilkan komponen internal secara detail. Cinematic product showcase untuk kampanye pemasaran produk technology.",
-        "thumbnail": "assets/product-animation.png",
-        "images": [
-            "assets/product-animation.png",
-            "assets/product-prototype.png",
-            "assets/interior-design.png"
-        ],
-        "client": "TechWear Co.",
-        "tools": "Blender, After Effects",
-        "duration": "4 Weeks"
-    },
-    {
-        "title": "Immersive XR Interface",
-        "category": "AR / VR",
-        "filter": "xr",
-        "shortDesc": "Antarmuka holografis interaktif untuk pengalaman augmented dan virtual reality.",
-        "description": "Antarmuka holografis interaktif untuk pengalaman augmented dan virtual reality. UI/UX design khusus untuk spatial computing dengan gesture-based interaction.",
-        "thumbnail": "assets/ar-vr-project.png",
-        "images": [
-            "assets/ar-vr-project.png",
-            "assets/game-environment.png",
-            "assets/game-character.png"
-        ],
-        "client": "XR Solutions Inc.",
-        "tools": "Unity, Figma, Blender",
-        "duration": "8 Weeks"
-    },
-    {
-        "title": "Sci-Fi Character Model",
-        "category": "Game Asset",
-        "filter": "game",
-        "shortDesc": "Karakter game sci-fi dengan PBR materials, siap digunakan dalam game engine.",
-        "description": "Karakter game sci-fi dengan full PBR materials, dan skeletal rig. Game-ready asset yang dioptimasi untuk real-time rendering dengan LOD system.",
-        "thumbnail": "assets/game-character.png",
-        "images": [
-            "assets/game-character.png",
-            "assets/game-environment.png",
-            "assets/ar-vr-project.png"
-        ],
-        "client": "Galaxy Games",
-        "tools": "ZBrush, Blender, Substance",
-        "duration": "5 Weeks"
     }
 ]
