@@ -93,17 +93,28 @@ function renderServices(services) {
         }
 
         return `
-            <div class="service-card${featuredClass} reveal visible" data-delay="${i * 100}">
+            <div class="service-card${featuredClass} reveal cyber-card" data-delay="${i * 100}">
                 ${badge}
                 <div class="service-icon-wrap">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">${iconMap[s.icon] || ''}</svg>
                 </div>
+                <div class="service-info">
+                    <div class="service-header-row">
+                        <span class="service-category">${s.category}</span>
+                        <span class="service-software">${s.tools}</span>
+                    </div>
                 <h3 class="service-title">${s.title}</h3>
                 <p class="service-desc">${tObj(s.description)}</p>
                 <div class="service-tags">${tags}</div>
                 ${platforms}
-            </div>`;
+            </div>
+        </div>`;
     }).join('');
+
+    // Trigger GSAP refresh
+    if (window.initScrollAnimations) {
+        setTimeout(window.initScrollAnimations, 100);
+    }
 }
 
 // ============================================
@@ -126,7 +137,7 @@ function renderPortfolio() {
     if (!grid || projects.length === 0) return;
 
     grid.innerHTML = projects.map((p, i) => `
-        <div class="portfolio-item reveal visible" data-category="${p.filter}">
+        <div class="portfolio-item reveal cyber-card" data-category="${p.filter}" data-delay="${i * 100}">
             <div class="portfolio-img-wrap">
                 <img src="${p.thumbnail}" alt="${p.title}" loading="lazy">
                 <div class="portfolio-overlay">
@@ -143,6 +154,11 @@ function renderPortfolio() {
 
     // Re-init portfolio filters
     initPortfolioFilters();
+
+    // Trigger GSAP refresh since new elements were added
+    if (window.initScrollAnimations) {
+        setTimeout(window.initScrollAnimations, 100);
+    }
 }
 
 function initPortfolioFilters() {
@@ -603,26 +619,76 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // SCROLL REVEAL
+    // GSAP SCROLL REVEAL (IN-OUT ANIMATION)
     // ============================================
-    const revealElements = document.querySelectorAll('.reveal');
+    gsap.registerPlugin(ScrollTrigger);
 
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const delay = entry.target.getAttribute('data-delay') || 0;
-                setTimeout(() => {
-                    entry.target.classList.add('visible');
-                }, delay);
-                revealObserver.unobserve(entry.target);
+    window.initScrollAnimations = function () {
+        // Clear previous triggers if re-initializing
+        ScrollTrigger.getAll().forEach(t => t.kill());
+
+        const revealElements = gsap.utils.toArray('.reveal');
+
+        revealElements.forEach(el => {
+            // Force transition to none so CSS doesn't fight GSAP
+            gsap.set(el, { autoAlpha: 0, y: 50, scale: 0.95 });
+            el.style.transition = "none";
+
+            const delayAttr = el.getAttribute('data-delay') || 0;
+            const delayTime = (parseFloat(delayAttr) / 1000) * 0.4; // 60% faster delays
+
+            ScrollTrigger.create({
+                trigger: el,
+                start: "top 90%",
+                end: "bottom 10%",
+                toggleActions: "play reverse play reverse",
+                animation: gsap.to(el, {
+                    duration: 0.5,
+                    autoAlpha: 1,
+                    y: 0,
+                    scale: 1,
+                    delay: delayTime,
+                    ease: "power3.out", // Smoother unified motion without scale bouncing weirdly
+                    onStart: () => { el.style.transition = "none"; },
+                    onComplete: () => { el.style.removeProperty("transition"); },
+                    onReverseComplete: () => { el.style.transition = "none"; }
+                })
+            });
+        });
+
+        // Specialized Animation for Section Headers
+        const sectionHeaders = gsap.utils.toArray('.section-header');
+        sectionHeaders.forEach(header => {
+            const tag = header.querySelector('.section-tag');
+            const title = header.querySelector('.section-title');
+
+            if (tag && title) {
+                gsap.set(tag, { autoAlpha: 0, x: -30 });
+                gsap.set(title, { autoAlpha: 0, x: 30 });
+                tag.style.transition = "none";
+                title.style.transition = "none";
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: header,
+                        start: "top 90%",
+                        end: "bottom 10%",
+                        toggleActions: "play reverse play reverse"
+                    },
+                    onStart: () => { tag.style.transition = "none"; title.style.transition = "none"; },
+                    onComplete: () => { tag.style.removeProperty("transition"); title.style.removeProperty("transition"); },
+                    onReverseComplete: () => { tag.style.transition = "none"; title.style.transition = "none"; }
+                });
+
+                tl.to(tag, { duration: 0.4, autoAlpha: 1, x: 0, ease: "power3.out" })
+                    .to(title, { duration: 0.5, autoAlpha: 1, x: 0, ease: "power3.out" }, "-=0.2");
             }
         });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
+        ScrollTrigger.refresh();
+    };
 
-    revealElements.forEach(el => revealObserver.observe(el));
+    // Run once immediately for static HTML elements
+    initScrollAnimations();
 
     // Stats observer
     const heroStats = document.querySelector('.hero-stats');
@@ -661,6 +727,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3000);
         });
     }
+
+    // ============================================
+    // MAGNETIC BUTTON EFFECT
+    // ============================================
+    const magneticElements = document.querySelectorAll('.magnetic');
+    
+    magneticElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            gsap.to(el, {
+                x: x * 0.4,
+                y: y * 0.4,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+        });
+
+        el.addEventListener('mouseleave', () => {
+            gsap.to(el, {
+                x: 0,
+                y: 0,
+                duration: 0.5,
+                ease: "elastic.out(1, 0.3)"
+            });
+        });
+    });
 });
 
 // ============================================

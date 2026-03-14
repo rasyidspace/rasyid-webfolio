@@ -1354,23 +1354,65 @@ h1, h2, h3, h4 {
 }
 
 .tech-item {
+    perspective: 1000px;
+    background: transparent;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    min-height: 190px;
+}
+
+.tech-item-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+}
+
+.tech-item:hover .tech-item-inner {
+    transform: rotateY(180deg);
+}
+
+.tech-item-front, .tech-item-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: var(--radius-lg);
+}
+
+.tech-item-front {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 12px;
     padding: 32px 20px;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    transition: all var(--transition-base);
-    position: relative;
-    cursor: default;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.tech-item:hover {
-    transform: translateY(-6px);
+.tech-item:hover .tech-item-front {
     border-color: var(--border-glow);
     box-shadow: var(--shadow-glow);
+}
+
+.tech-item-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 16px;
+    background: rgba(0, 212, 255, 0.05);
+    border: 1px solid var(--accent-cyan);
+    transform: rotateY(180deg);
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
 }
 
 .tech-icon {
@@ -1384,40 +1426,12 @@ h1, h2, h3, h4 {
     color: var(--accent-cyan);
 }
 
-.tech-item > span {
+.tech-item-front > span {
     font-weight: 600;
     font-size: 0.9rem;
 }
 
-/* Tech Tooltip — overlay on card */
-.tech-item[data-tooltip]::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 16px;
-    background: rgba(6, 6, 14, 0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: var(--radius-lg);
-    color: var(--text-secondary);
-    font-size: 0.82rem;
-    font-weight: 400;
-    line-height: 1.6;
-    text-align: center;
-    z-index: 10;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.tech-item[data-tooltip]:hover::after {
-    opacity: 1;
-}
-
-[data-theme="light"] .tech-item[data-tooltip]::after {
+[data-theme="light"] .tech-item-back {
     background: rgba(240, 255, 255, 0.94);
     color: var(--text-secondary);
 }
