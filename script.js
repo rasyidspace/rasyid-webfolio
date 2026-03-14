@@ -6,7 +6,7 @@
 // ============================================
 // i18n — LANGUAGE SYSTEM
 // ============================================
-let currentLang = localStorage.getItem('r24-lang') || 'id';
+let currentLang = localStorage.getItem('r24-lang') || 'en';
 let translations = {};
 
 async function loadLanguage(lang) {
