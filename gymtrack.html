@@ -4,89 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym Tracker Mini</title>
+    <title>Gym Tracker Mini - R24 Studio</title>
+    
+    <!-- Favicon (Website Icon) -->
+    <link rel="icon" type="image/png" href="assets/Icon/icon_meshlab.png">
+    <link rel="apple-touch-icon" href="assets/Icon/icon_meshlab.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
-            max-width: 400px;
-            margin: auto;
-            background-color: #f4f7f6;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-top: 0;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #007bff;
+        /* Specific styles for Gym Tracker to match theme */
+        .gym-container {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 60px;
+            position: relative;
+            z-index: 10;
         }
 
         .number-input-group {
             display: flex;
             align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            transition: border-color var(--transition-fast);
+        }
+
+        .number-input-group:focus-within {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 1px var(--accent-cyan);
         }
 
         .number-input-group button {
-            width: 45px;
-            height: 45px;
-            flex-shrink: 0;
-            padding: 0;
-            font-size: 24px;
-            font-weight: bold;
-            background: #e9ecef;
-            color: #333;
-            border: 1px solid #ddd;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: none;
+            font-size: 20px;
             cursor: pointer;
+            transition: background var(--transition-fast);
         }
 
         .number-input-group button:hover {
-            background: #dde0e3;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .number-input-group button {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="light"] .number-input-group button:hover {
+            background: rgba(0, 0, 0, 0.1);
         }
 
         .number-input-group input {
             flex-grow: 1;
+            height: 50px;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
             text-align: center;
-            border-radius: 0;
-            border-left: none;
-            border-right: none;
-            height: 45px;
+            font-size: 18px;
+            font-weight: 600;
             -moz-appearance: textfield;
             appearance: textfield;
-            font-weight: bold;
-            font-size: 18px;
+        }
+        
+        .number-input-group input:focus {
+            outline: none;
         }
 
         .number-input-group input::-webkit-outer-spin-button,
@@ -95,102 +86,196 @@
             margin: 0;
         }
 
-        .number-input-group button:first-child {
-            border-radius: 5px 0 0 5px;
+        .back-nav {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 1000;
         }
 
-        .number-input-group button:last-child {
-            border-radius: 0 5px 5px 0;
-        }
-
-        .btn-submit {
+        /* Override contact form styles specifically for gym tracker */
+        .contact-form select,
+        .contact-form input {
             width: 100%;
-            padding: 12px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 10px;
+            padding: 14px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: all var(--transition-fast);
+            font-family: var(--font-body);
         }
 
-        .btn-submit:hover {
-            background: #0056b3;
+        .contact-form select:focus,
+        .contact-form input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 1px var(--accent-cyan);
+        }
+        
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
-        .btn-submit:disabled {
-            background: #99c2ff;
-            cursor: not-allowed;
+        .contact-form option {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
         }
-
+        
         #message {
-            margin-top: 15px;
-            font-weight: bold;
+            margin-top: 20px;
             text-align: center;
-            height: 24px;
+            font-weight: 500;
+            min-height: 24px;
+        }
+
+        /* Theme toggle floating */
+        .theme-float {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .theme-float .settings-toggle {
+            width: 44px;
+            height: 44px;
         }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <h2>Catat Latihan</h2>
-        <form id="gymForm">
-            <div class="form-group">
-                <label>Jadwal</label>
-                <select name="jadwal" id="jadwalSelect" required>
-                    <option value="" disabled selected>Pilih Jadwal</option>
-                    <option value="Push Day">Push Day</option>
-                    <option value="Pull Day">Pull Day</option>
-                    <option value="Leg Day">Leg Day</option>
-                    <option value="Shoulder Day">Shoulder Day</option>
-                    <option value="Upper Body">Upper Body</option>
-                    <option value="Rest Day">Rest Day</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Latihan</label>
-                <select name="exercise" id="exerciseSelect" required>
-                    <option value="" disabled selected>Pilih Jadwal Terlebih Dahulu</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Sets</label>
-                <div class="number-input-group">
-                    <button type="button" onclick="updateNumber('sets', -1)">-</button>
-                    <input type="number" id="sets" name="sets" value="1" min="1" required>
-                    <button type="button" onclick="updateNumber('sets', 1)">+</button>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Reps</label>
-                <div class="number-input-group">
-                    <button type="button" onclick="updateNumber('reps', -1)">-</button>
-                    <input type="number" id="reps" name="reps" value="10" min="0" required>
-                    <button type="button" onclick="updateNumber('reps', 1)">+</button>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Berat (Kg)</label>
-                <div class="number-input-group">
-                    <button type="button" onclick="updateNumber('weight', -2.5, true)">-</button>
-                    <input type="number" step="0.5" id="weight" name="weight" value="0" min="0" required>
-                    <button type="button" onclick="updateNumber('weight', 2.5, true)">+</button>
-                </div>
-                <small id="lastRecord"
-                    style="color: #007bff; display: block; margin-top: 5px; text-align: center; font-weight: bold; min-height: 18px;"></small>
-                <small style="color: #888; display: block; margin-top: 5px; text-align: center;">Tombol +/- mengubah 2.5
-                    kg</small>
-            </div>
-            <button type="submit" id="submitBtn" class="btn-submit">Simpan ke Sheets</button>
-        </form>
-        <div id="message"></div>
+    <!-- Background Elements -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+        <canvas id="particleCanvas"></canvas>
     </div>
 
+    <!-- Navigation -->
+    <div class="back-nav reveal">
+        <a href="index.html" class="btn btn-outline magnetic">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Home
+        </a>
+    </div>
+
+    <div class="theme-float reveal">
+        <button class="settings-toggle magnetic" id="themeToggle" aria-label="Toggle theme">
+            <div class="theme-icons-wrap">
+                <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+                <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </div>
+        </button>
+    </div>
+
+    <!-- Mock Navbar to prevent script.js errors -->
+    <nav id="navbar" style="display: none;"></nav>
+    <button id="navToggle" style="display: none;"></button>
+    <ul id="navMenu" style="display: none;"></ul>
+
+    <section class="section contact" id="gymtrackBase" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 0;">
+        <div class="container gym-container">
+            <div class="section-header reveal" style="margin-bottom: 40px;">
+                <span class="section-tag" style="margin-bottom: 12px;">Gym Tracker</span>
+                <h2 class="section-title" style="margin-bottom: 8px;"><span class="gradient-text">Log</span> Workout</h2>
+                <p class="section-desc">Catat sesi latihan Anda ke Google Sheets</p>
+            </div>
+            
+            <div class="contact-minimal reveal cyber-card" style="padding: 40px;">
+                <form class="contact-form" id="gymForm">
+                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Jadwal</label>
+                            <select name="jadwal" id="jadwalSelect" required>
+                                <option value="" disabled selected>Pilih Jadwal</option>
+                                <option value="Push Day">Push Day</option>
+                                <option value="Pull Day">Pull Day</option>
+                                <option value="Leg Day">Leg Day</option>
+                                <option value="Shoulder Day">Shoulder Day</option>
+                                <option value="Upper Body">Upper Body</option>
+                                <option value="Rest Day">Rest Day</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Latihan</label>
+                            <select name="exercise" id="exerciseSelect" required>
+                                <option value="" disabled selected>Pilih Jadwal Terlebih Dahulu</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Sets</label>
+                            <div class="number-input-group">
+                                <button type="button" onclick="updateNumber('sets', -1)">-</button>
+                                <input type="number" id="sets" name="sets" value="1" min="1" required>
+                                <button type="button" onclick="updateNumber('sets', 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Reps</label>
+                            <div class="number-input-group">
+                                <button type="button" onclick="updateNumber('reps', -1)">-</button>
+                                <input type="number" id="reps" name="reps" value="10" min="0" required>
+                                <button type="button" onclick="updateNumber('reps', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 32px;">
+                        <label>Berat (Kg)</label>
+                        <div class="number-input-group">
+                            <button type="button" onclick="updateNumber('weight', -2.5, true)">-</button>
+                            <input type="number" step="0.5" id="weight" name="weight" value="0" min="0" required>
+                            <button type="button" onclick="updateNumber('weight', 2.5, true)">+</button>
+                        </div>
+                        <small id="lastRecord" style="color: var(--accent-cyan); display: block; margin-top: 12px; text-align: center; font-weight: 500; min-height: 20px;"></small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full magnetic" id="submitBtn">
+                        <span>Simpan ke Sheets</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                    </button>
+                </form>
+                <div id="message"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GSAP for Smooth Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Core Script for Animations and Theme setup -->
+    <script src="script.js?v=2"></script>
+
     <script>
-        // URL tetap sama, tidak diganti
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJQHVFdFKxuGwI7_B_02KHtJTWEBx5WIs64cmnfFHwL4MYWfPdU-ey8pEcpdABbJ8/exec";
 
         const workouts = {
@@ -243,7 +328,7 @@
             if (!selectedExercise) return;
 
             lastRecordLabel.innerText = 'Memuat data...';
-            lastRecordLabel.style.color = '#888';
+            lastRecordLabel.style.color = 'var(--text-tertiary)';
 
             fetch(`${SCRIPT_URL}?exercise=${encodeURIComponent(selectedExercise)}`, {
                 method: 'GET'
@@ -252,16 +337,16 @@
                 .then(data => {
                     if (data.status === 'success') {
                         lastRecordLabel.innerText = `Last Record - ${selectedExercise} : ${data.weight} Kg`;
-                        lastRecordLabel.style.color = '#007bff';
+                        lastRecordLabel.style.color = 'var(--accent-cyan)';
                     } else {
                         lastRecordLabel.innerText = `Belum ada riwayat untuk ${selectedExercise}`;
-                        lastRecordLabel.style.color = '#888';
+                        lastRecordLabel.style.color = 'var(--text-tertiary)';
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
                     lastRecordLabel.innerText = 'Gagal memuat Last Record';
-                    lastRecordLabel.style.color = 'red';
+                    lastRecordLabel.style.color = '#ef4444';
                 });
         });
 
@@ -272,22 +357,22 @@
 
             val += change;
 
-            // Batas minimal 0 (atau 1 untuk sets)
             if (id === 'sets' && val < 1) val = 1;
             else if (val < 0) val = 0;
 
-            // Hapus desimal .0 jika bilangan bulat
             input.value = isFloat ? val.toFixed(1).replace('.0', '') : val;
         }
 
         const form = document.getElementById('gymForm');
         const messageDiv = document.getElementById('message');
         const submitBtn = document.getElementById('submitBtn');
+        const submitSpan = submitBtn.querySelector('span');
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            submitBtn.innerText = "Menyimpan...";
+            submitSpan.innerText = "Menyimpan...";
+            submitBtn.style.opacity = '0.7';
             submitBtn.disabled = true;
             messageDiv.innerText = "";
 
@@ -299,15 +384,14 @@
             })
                 .then(response => {
                     messageDiv.innerText = "✅ Berhasil dicatat!";
-                    messageDiv.style.color = "green";
-                    submitBtn.innerText = "Simpan ke Sheets";
+                    messageDiv.style.color = "#10b981"; // emerald-500
+                    submitSpan.innerText = "Simpan ke Sheets";
+                    submitBtn.style.opacity = '1';
                     submitBtn.disabled = false;
 
-                    // UX Tambahan: Otomatis tambah 1 setelah klik simpan untuk lanjut set berikutnya
                     const currentSets = parseInt(document.getElementById('sets').value) || 1;
                     document.getElementById('sets').value = currentSets + 1;
 
-                    // Hilangkan pesan sukses setelah 3 detik
                     setTimeout(() => {
                         messageDiv.innerText = "";
                     }, 3000);
@@ -315,12 +399,12 @@
                 .catch(error => {
                     console.error('Error!', error.message);
                     messageDiv.innerText = "⚠️ Terjadi kesalahan.";
-                    messageDiv.style.color = "red";
-                    submitBtn.innerText = "Simpan ke Sheets";
+                    messageDiv.style.color = "#ef4444"; // red-500
+                    submitSpan.innerText = "Simpan ke Sheets";
+                    submitBtn.style.opacity = '1';
                     submitBtn.disabled = false;
                 });
         });
     </script>
 </body>
-
 </html>
