@@ -83,5 +83,6 @@
 
     "modal.client": "Client",
     "modal.tools": "Tools",
-    "modal.duration": "Duration"
+    "modal.duration": "Duration",
+    "settings.gymtrack": "Gym Tracker"
 }
