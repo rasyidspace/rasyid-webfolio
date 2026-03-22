@@ -416,7 +416,16 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        lastRecordLabel.innerText = `Last Record - ${selectedExercise} : ${data.weight} Kg`;
+                        let lastBerat = data.weight;
+                        if (typeof lastBerat === 'string' && /^\\d{4}-\\d{2}-\\d{2}T/.test(lastBerat)) {
+                            const dErr2 = new Date(lastBerat);
+                            if (!isNaN(dErr2.getTime())) {
+                                lastBerat = dErr2.getDate() + '.' + (dErr2.getMonth() + 1);
+                            }
+                        } else if (lastBerat !== undefined && lastBerat !== null) {
+                            lastBerat = lastBerat.toString().replace(',', '.');
+                        }
+                        lastRecordLabel.innerText = `Last Record - ${selectedExercise} : ${lastBerat} Kg`;
                         lastRecordLabel.style.color = '#00d4ff';
                     } else {
                         lastRecordLabel.innerText = `Belum ada riwayat untuk ${selectedExercise}`;
@@ -457,6 +466,12 @@
             messageDiv.innerText = "";
 
             const formData = new FormData(form);
+
+            // Fix Google Sheets auto-date bug (e.g. 16.5 becomes 16 May)
+            let weightVal = formData.get('weight');
+            if (weightVal && weightVal.includes('.')) {
+                formData.set('weight', weightVal.replace('.', ','));
+            }
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
@@ -525,6 +540,18 @@
                                     });
                                 }
                             }
+                            let beratStr = row.berat;
+                            if (typeof beratStr === 'string' && /^\\d{4}-\\d{2}-\\d{2}T/.test(beratStr)) {
+                                const dErr = new Date(beratStr);
+                                if (!isNaN(dErr.getTime())) {
+                                    beratStr = dErr.getDate() + '.' + (dErr.getMonth() + 1);
+                                }
+                            } else if (beratStr !== undefined && beratStr !== null && beratStr !== '') {
+                                beratStr = beratStr.toString().replace(',', '.');
+                            } else {
+                                beratStr = '-';
+                            }
+
                             newRows += `
                                 <tr>
                                     <td>${dateStr || '-'}</td>
@@ -532,7 +559,7 @@
                                     <td>${row.latihan || '-'}</td>
                                     <td>${row.sets || '-'}</td>
                                     <td>${row.reps || '-'}</td>
-                                    <td>${row.berat !== undefined && row.berat !== '' ? row.berat : '-'}</td>
+                                    <td>${beratStr}</td>
                                 </tr>
                             `;
                         });
