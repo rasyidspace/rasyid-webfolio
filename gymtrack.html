@@ -14,7 +14,7 @@
         body {
             font-family: 'Inter', sans-serif;
             padding: 24px;
-            max-width: 450px;
+            max-width: 500px;
             margin: auto;
             background-color: #06060b;
             color: #f0f0f5;
@@ -147,8 +147,14 @@
             margin: 0;
         }
 
+        .submit-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
         .btn-submit {
-            width: 100%;
+            flex: 2;
             padding: 14px;
             background: linear-gradient(135deg, #00d4ff, #7c3aed);
             color: white;
@@ -157,7 +163,6 @@
             cursor: pointer;
             font-size: 15px;
             font-weight: 600;
-            margin-top: 15px;
             transition: transform 0.2s, box-shadow 0.2s;
             font-family: inherit;
         }
@@ -174,6 +179,26 @@
             box-shadow: none;
         }
 
+        .btn-secondary {
+            flex: 1;
+            padding: 14px;
+            background: transparent;
+            color: #a0a0b5;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-secondary:hover {
+            color: #f0f0f5;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
         #message {
             margin-top: 20px;
             font-weight: 500;
@@ -181,6 +206,62 @@
             min-height: 24px;
             font-size: 14px;
         }
+
+        .history-card {
+            padding: 24px;
+            margin-top: 24px;
+            display: none; /* dihidden default */
+        }
+
+        .history-card h3 {
+            margin-top: 0;
+            color: #f0f0f5;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            max-height: 400px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            white-space: nowrap;
+        }
+
+        th {
+            color: #00d4ff;
+            font-weight: 600;
+            background: #1a1a2e;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            color: #f0f0f5;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
     </style>
 </head>
 
@@ -240,13 +321,38 @@
                     <input type="number" step="0.5" id="weight" name="weight" value="0" min="0" required>
                     <button type="button" onclick="updateNumber('weight', 2.5, true)">+</button>
                 </div>
-                <small id="lastRecord"
-                    style="color: #00d4ff; display: block; margin-top: 8px; text-align: center; font-weight: 500; min-height: 18px;"></small>
+                <small id="lastRecord" style="color: #00d4ff; display: block; margin-top: 8px; text-align: center; font-weight: 500; min-height: 18px;"></small>
                 <small style="color: #6a6a80; display: block; margin-top: 5px; text-align: center;">Tombol +/- mengubah 2.5 kg</small>
             </div>
-            <button type="submit" id="submitBtn" class="btn-submit">Simpan ke Sheets</button>
+            
+            <div class="submit-group">
+                <button type="button" id="btnHistory" class="btn-secondary">Lihat History</button>
+                <button type="submit" id="submitBtn" class="btn-submit">Simpan ke Sheets</button>
+            </div>
         </form>
         <div id="message"></div>
+    </div>
+
+    <div class="card history-card" id="historySection">
+        <h3>Riwayat Latihan</h3>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Waktu</th>
+                        <th>Jadwal</th>
+                        <th>Latihan</th>
+                        <th>Sets</th>
+                        <th>Reps</th>
+                        <th>Berat (Kg)</th>
+                    </tr>
+                </thead>
+                <tbody id="historyBody">
+                    <!-- Data here -->
+                </tbody>
+            </table>
+        </div>
+        <div id="historyMessage" style="text-align: center; color: #a0a0b5; margin-top: 15px; font-weight: 500; font-size: 14px;"></div>
     </div>
 
     <script>
@@ -376,6 +482,75 @@
                     submitBtn.innerText = "Simpan ke Sheets";
                     submitBtn.disabled = false;
                 });
+        });
+
+        // ---------------------------------------------------------
+        // History Logic
+        // ---------------------------------------------------------
+        const btnHistory = document.getElementById('btnHistory');
+        const historySection = document.getElementById('historySection');
+        const historyBody = document.getElementById('historyBody');
+        const historyMessage = document.getElementById('historyMessage');
+
+        btnHistory.addEventListener('click', function () {
+            if (historySection.style.display === 'block') {
+                historySection.style.display = 'none';
+                return;
+            }
+
+            historySection.style.display = 'block';
+            historyBody.innerHTML = '';
+            historyMessage.innerText = 'Memuat seluruh data dari Google Sheets...';
+            historyMessage.style.color = '#00d4ff';
+
+            fetch(`${SCRIPT_URL}?action=getAll`, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status === 'success') {
+                    const data = result.data;
+                    if (data && data.length > 0) {
+                        historyMessage.innerText = '';
+                        let newRows = '';
+                        // Render data table
+                        data.forEach(row => {
+                            let dateStr = row.timestamp;
+                            if (dateStr) {
+                                const d = new Date(dateStr);
+                                if (!isNaN(d.getTime())) {
+                                    dateStr = d.toLocaleDateString('id-ID', {
+                                        day: '2-digit', month: 'short', year: 'numeric',
+                                        hour: '2-digit', minute:'2-digit'
+                                    });
+                                }
+                            }
+                            newRows += `
+                                <tr>
+                                    <td>${dateStr || '-'}</td>
+                                    <td>${row.jadwal || '-'}</td>
+                                    <td>${row.latihan || '-'}</td>
+                                    <td>${row.sets || '-'}</td>
+                                    <td>${row.reps || '-'}</td>
+                                    <td>${row.berat !== undefined && row.berat !== '' ? row.berat : '-'}</td>
+                                </tr>
+                            `;
+                        });
+                        historyBody.innerHTML = newRows;
+                    } else {
+                        historyMessage.innerText = 'Belum ada data riwayat sama sekali.';
+                        historyMessage.style.color = '#a0a0b5';
+                    }
+                } else {
+                    historyMessage.innerText = 'Gagal memuat riwayat.';
+                    historyMessage.style.color = '#ef4444';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching history:', error);
+                historyMessage.innerText = 'Terjadi kesalahan jaringan saat memuat riwayat.';
+                historyMessage.style.color = '#ef4444';
+            });
         });
     </script>
 </body>
