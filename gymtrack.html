@@ -147,6 +147,33 @@
             margin: 0;
         }
 
+        .quick-weights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .quick-weight-btn {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #a0a0b5;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+
+        .quick-weight-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f0f0f5;
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
         .submit-group {
             display: flex;
             gap: 12px;
@@ -323,10 +350,20 @@
                     <input type="number" step="0.5" id="weight" name="weight" value="0" min="0" required>
                     <button type="button" onclick="updateNumber('weight', 2.5, true)">+</button>
                 </div>
-                <small id="lastRecord"
-                    style="color: #00d4ff; display: block; margin-top: 8px; text-align: center; font-weight: 500; min-height: 18px;"></small>
-                <small style="color: #6a6a80; display: block; margin-top: 5px; text-align: center;">Tombol +/- mengubah
-                    2.5 kg</small>
+                <small id="lastRecord" style="color: #00d4ff; display: block; margin-top: 8px; text-align: center; font-weight: 500; min-height: 18px;"></small>
+                
+                <div class="quick-weights">
+                    <button type="button" class="quick-weight-btn" onclick="setWeight(5)">5</button>
+                    <button type="button" class="quick-weight-btn" onclick="setWeight(10)">10</button>
+                    <button type="button" class="quick-weight-btn" onclick="setWeight(15)">15</button>
+                    <button type="button" class="quick-weight-btn" onclick="setWeight(20)">20</button>
+                    <button type="button" class="quick-weight-btn" onclick="setWeight(25)">25</button>
+                    <button type="button" class="quick-weight-btn" onclick="setWeight(30)">30</button>
+                    <button type="button" class="quick-weight-btn" onclick="setWeight(35)">35</button>
+                    <button type="button" class="quick-weight-btn" onclick="setWeight(40)">40</button>
+                    <button type="button" class="quick-weight-btn" onclick="setWeight(45)">45</button>
+                    <button type="button" class="quick-weight-btn" onclick="setWeight(50)">50</button>
+                </div>
             </div>
 
             <div class="submit-group">
@@ -457,6 +494,10 @@
 
             // Hapus nol di belakang jika integer
             input.value = isFloat ? val.toFixed(1).replace('.0', '') : val;
+        }
+
+        function setWeight(val) {
+            document.getElementById('weight').value = val;
         }
 
         const form = document.getElementById('gymForm');
