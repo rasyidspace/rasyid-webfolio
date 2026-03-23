@@ -523,10 +523,22 @@
     <div id="startScreen" class="card" style="text-align: center; margin-top: 15vh;">
         <h2 style="margin-bottom: 10px; font-size: 28px;">Gym Tracker</h2>
         <p style="color: #a0a0b5; margin-bottom: 30px; font-size: 14px;">Siap untuk menghancurkan rekor hari ini?</p>
+        
+        <!-- Default Start Button -->
         <button type="button" class="btn-submit" id="btnStartWorkout" style="padding: 18px; font-size: 18px; display: inline-flex; width: auto; min-width: 200px; justify-content: center; margin: auto;">
             <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             START WORKOUT
         </button>
+
+        <!-- Resume Actions (Hidden by default) -->
+        <div id="resumeActions" style="display: none; flex-direction: column; align-items: center; gap: 12px; margin-top: 10px;">
+            <button type="button" class="btn-submit" id="btnResumeWorkout" style="background: linear-gradient(135deg, #10b981, #059669); padding: 18px; font-size: 18px; display: inline-flex; width: auto; min-width: 200px; justify-content: center; margin: auto; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                RESUME WORKOUT
+            </button>
+            <button type="button" id="btnResetWorkout" style="background: transparent; border: none; color: #ef4444; font-size: 14px; text-decoration: underline; cursor: pointer; padding: 5px; font-weight: 500;">Reset & Mulai Baru</button>
+        </div>
+
         <div style="margin-top: 25px;">
             <button type="button" id="btnHistory" class="btn-secondary" style="width: auto; padding: 10px 20px; font-size: 14px;">Lihat Training History</button>
         </div>
@@ -603,22 +615,20 @@
                     <option value="" disabled selected>Pilih Jadwal Terlebih Dahulu</option>
                 </select>
             </div>
-            <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-                <div class="form-group" style="flex: 1; margin-bottom: 0;">
-                    <label>Sets</label>
-                    <div class="number-input-group">
-                        <button type="button" onclick="updateNumber('sets', -1)">-</button>
-                        <input type="number" id="sets" name="sets" value="1" min="1" required>
-                        <button type="button" onclick="updateNumber('sets', 1)">+</button>
-                    </div>
+            <div class="form-group">
+                <label>Sets</label>
+                <div class="number-input-group">
+                    <button type="button" onclick="updateNumber('sets', -1)">-</button>
+                    <input type="number" id="sets" name="sets" value="1" min="1" required>
+                    <button type="button" onclick="updateNumber('sets', 1)">+</button>
                 </div>
-                <div class="form-group" style="flex: 1; margin-bottom: 0;">
-                    <label>Reps</label>
-                    <div class="number-input-group">
-                        <button type="button" onclick="updateNumber('reps', -1)">-</button>
-                        <input type="number" id="reps" name="reps" value="10" min="0" required>
-                        <button type="button" onclick="updateNumber('reps', 1)">+</button>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label>Reps</label>
+                <div class="number-input-group">
+                    <button type="button" onclick="updateNumber('reps', -1)">-</button>
+                    <input type="number" id="reps" name="reps" value="10" min="0" required>
+                    <button type="button" onclick="updateNumber('reps', 1)">+</button>
                 </div>
             </div>
             <div class="form-group">
@@ -953,18 +963,40 @@
             }
             return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
         }
+        const btnStartWorkout = document.getElementById('btnStartWorkout');
+        const resumeActions = document.getElementById('resumeActions');
+        const btnResumeWorkout = document.getElementById('btnResumeWorkout');
+        const btnResetWorkout = document.getElementById('btnResetWorkout');
 
-        document.getElementById('btnStartWorkout').addEventListener('click', () => {
+        function checkResumeState() {
+            const savedStartTime = localStorage.getItem('gymtrack_workout_start');
+            if (savedStartTime) {
+                btnStartWorkout.style.display = 'none';
+                resumeActions.style.display = 'flex';
+                
+                const now = Math.floor(Date.now() / 1000);
+                let elapsed = now - parseInt(savedStartTime, 10);
+                if (elapsed < 0) elapsed = 0;
+                btnResumeWorkout.innerHTML = `<svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>RESUME (${formatTime(elapsed)})`;
+            } else {
+                btnStartWorkout.style.display = 'inline-flex';
+                resumeActions.style.display = 'none';
+            }
+        }
+        
+        checkResumeState();
+
+        function launchWorkout(isResume) {
             startScreen.style.display = 'none';
             workoutHeader.style.display = 'flex';
             workoutScreen.style.display = 'block';
 
             clearInterval(globalTimerInterval);
             
-            const savedStartTime = localStorage.getItem('gymtrack_workout_start');
-            if (savedStartTime) {
+            if (isResume) {
+                const savedStartTime = localStorage.getItem('gymtrack_workout_start');
                 const now = Math.floor(Date.now() / 1000);
-                globalSeconds = now - parseInt(savedStartTime, 10);
+                globalSeconds = savedStartTime ? now - parseInt(savedStartTime, 10) : 0;
                 if (globalSeconds < 0) globalSeconds = 0;
             } else {
                 globalSeconds = 0;
@@ -979,6 +1011,16 @@
             }, 1000);
 
             loadTodayHistory();
+        }
+
+        btnStartWorkout.addEventListener('click', () => launchWorkout(false));
+        btnResumeWorkout.addEventListener('click', () => launchWorkout(true));
+
+        btnResetWorkout.addEventListener('click', () => {
+            if (confirm('Hapus sesi sebelumnya dan mulai timer dari awal?')) {
+                localStorage.removeItem('gymtrack_workout_start');
+                checkResumeState();
+            }
         });
 
         document.getElementById('btnEndWorkout').addEventListener('click', () => {
@@ -989,6 +1031,7 @@
                 workoutScreen.style.display = 'none';
                 startScreen.style.display = 'block';
                 document.getElementById('gymForm').reset();
+                checkResumeState();
             }
         });
 
