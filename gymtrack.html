@@ -513,11 +513,7 @@
 
             const formData = new FormData(form);
 
-            // Fix Google Sheets auto-date bug (e.g. 16.5 becomes 16 May)
-            let weightVal = formData.get('weight');
-            if (weightVal && weightVal.includes('.')) {
-                formData.set('weight', weightVal.replace('.', ','));
-            }
+
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
