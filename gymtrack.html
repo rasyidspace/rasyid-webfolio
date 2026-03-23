@@ -905,9 +905,20 @@
             workoutHeader.style.display = 'flex';
             workoutScreen.style.display = 'block';
 
-            globalSeconds = 0;
-            overallTimerDisplay.innerText = "00:00";
             clearInterval(globalTimerInterval);
+            
+            const savedStartTime = localStorage.getItem('gymtrack_workout_start');
+            if (savedStartTime) {
+                const now = Math.floor(Date.now() / 1000);
+                globalSeconds = now - parseInt(savedStartTime, 10);
+                if (globalSeconds < 0) globalSeconds = 0;
+            } else {
+                globalSeconds = 0;
+                const startTs = Math.floor(Date.now() / 1000);
+                localStorage.setItem('gymtrack_workout_start', startTs.toString());
+            }
+
+            overallTimerDisplay.innerText = formatTime(globalSeconds);
             globalTimerInterval = setInterval(() => {
                 globalSeconds++;
                 overallTimerDisplay.innerText = formatTime(globalSeconds);
@@ -919,6 +930,7 @@
         document.getElementById('btnEndWorkout').addEventListener('click', () => {
             if (confirm('Akhiri latihan sekarang?')) {
                 clearInterval(globalTimerInterval);
+                localStorage.removeItem('gymtrack_workout_start');
                 workoutHeader.style.display = 'none';
                 workoutScreen.style.display = 'none';
                 startScreen.style.display = 'block';
