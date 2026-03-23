@@ -174,6 +174,42 @@
             border-color: rgba(0, 212, 255, 0.3);
         }
 
+        .jadwal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .jadwal-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #a0a0b5;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .jadwal-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 212, 255, 0.3);
+            color: #f0f0f5;
+        }
+
+        .jadwal-btn.active {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: #00d4ff;
+            color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.15);
+        }
+
         .submit-group {
             display: flex;
             gap: 12px;
@@ -309,15 +345,33 @@
         <form id="gymForm">
             <div class="form-group">
                 <label>Jadwal</label>
-                <select name="jadwal" id="jadwalSelect" required>
-                    <option value="" disabled selected>Pilih Jadwal</option>
-                    <option value="Push Day">Push Day</option>
-                    <option value="Pull Day">Pull Day</option>
-                    <option value="Leg Day">Leg Day</option>
-                    <option value="Shoulder Day">Shoulder Day</option>
-                    <option value="Upper Body">Upper Body</option>
-                    <option value="Rest Day">Rest Day</option>
-                </select>
+                <div class="jadwal-grid">
+                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Push Day', this)">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16V8"/><path d="M8 12l4-4 4 4"/></svg>
+                        <span>Push Day</span>
+                    </button>
+                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Pull Day', this)">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12l4 4 4-4"/></svg>
+                        <span>Pull Day</span>
+                    </button>
+                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Leg Day', this)">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <span>Leg Day</span>
+                    </button>
+                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Shoulder Day', this)">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        <span>Shoulder Day</span>
+                    </button>
+                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Upper Body', this)">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        <span>Upper Body</span>
+                    </button>
+                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Rest Day', this)">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <span>Rest Day</span>
+                    </button>
+                </div>
+                <input type="hidden" name="jadwal" id="jadwalInput" required>
             </div>
             <div class="form-group">
                 <label>Latihan</label>
@@ -350,8 +404,9 @@
                     <input type="number" step="0.5" id="weight" name="weight" value="0" min="0" required>
                     <button type="button" onclick="updateNumber('weight', 2.5, true)">+</button>
                 </div>
-                <small id="lastRecord" style="color: #00d4ff; display: block; margin-top: 8px; text-align: center; font-weight: 500; min-height: 18px;"></small>
-                
+                <small id="lastRecord"
+                    style="color: #00d4ff; display: block; margin-top: 8px; text-align: center; font-weight: 500; min-height: 18px;"></small>
+
                 <div class="quick-weights">
                     <button type="button" class="quick-weight-btn" onclick="setWeight(5)">5</button>
                     <button type="button" class="quick-weight-btn" onclick="setWeight(10)">10</button>
@@ -427,13 +482,15 @@
             "Rest Day": ["Rest"]
         };
 
-        const jadwalSelect = document.getElementById('jadwalSelect');
+        const jadwalInput = document.getElementById('jadwalInput');
         const exerciseSelect = document.getElementById('exerciseSelect');
 
-        jadwalSelect.addEventListener('change', function () {
-            const selectedJadwal = this.value;
-            const options = workouts[selectedJadwal] || [];
+        function selectJadwal(jadwal, btnElement) {
+            document.querySelectorAll('.jadwal-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            jadwalInput.value = jadwal;
 
+            const options = workouts[jadwal] || [];
             exerciseSelect.innerHTML = '<option value="" disabled selected>Pilih Latihan</option>';
             options.forEach(exercise => {
                 const opt = document.createElement('option');
@@ -441,7 +498,8 @@
                 opt.innerText = exercise;
                 exerciseSelect.appendChild(opt);
             });
-        });
+            document.getElementById('lastRecord').innerText = '';
+        }
 
         exerciseSelect.addEventListener('change', function () {
             const selectedExercise = this.value;
