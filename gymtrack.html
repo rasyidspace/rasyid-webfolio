@@ -270,6 +270,123 @@
             font-size: 14px;
         }
 
+        .workout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(18, 18, 30, 0.8);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 20px;
+            z-index: 50;
+        }
+
+        .global-timer {
+            font-size: 24px;
+            font-weight: 700;
+            color: #f0f0f5;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 1px;
+        }
+
+        .btn-end {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-end:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        /* Modal Rest Timer */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(6, 6, 11, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .modal-card {
+            background: #12121e;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 320px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-card h4 {
+            margin: 0 0 15px 0;
+            color: #00d4ff;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .rest-time-display {
+            font-size: 48px;
+            font-weight: 700;
+            color: #f0f0f5;
+            margin-bottom: 20px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .rest-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .btn-time-adjust {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0a0b5;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-time-adjust:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .btn-skip {
+            background: transparent;
+            border: none;
+            color: #6a6a80;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .btn-skip:hover {
+            color: #a0a0b5;
+        }
+
         .history-card {
             padding: 24px;
             margin-top: 24px;
@@ -340,7 +457,27 @@
         </a>
     </div>
 
-    <div class="card">
+    <!-- Start Screen -->
+    <div id="startScreen" class="card" style="text-align: center; margin-top: 30vh;">
+        <h2 style="margin-bottom: 10px; font-size: 28px;">Gym Tracker</h2>
+        <p style="color: #a0a0b5; margin-bottom: 30px; font-size: 14px;">Siap untuk menghancurkan rekor hari ini?</p>
+        <button type="button" class="btn-submit" id="btnStartWorkout" style="padding: 18px; font-size: 18px; display: inline-flex; width: auto; min-width: 200px; justify-content: center; margin: auto;">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            START WORKOUT
+        </button>
+    </div>
+
+    <!-- Workout Header (Global Timer & End) -->
+    <div id="workoutHeader" class="workout-header" style="display: none;">
+        <div class="global-timer">
+            <span id="overallTimerDisplay">00:00:00</span>
+        </div>
+        <button type="button" id="btnEndWorkout" class="btn-end">End Workout</button>
+    </div>
+
+    <!-- Active Workout Form Container -->
+    <div id="workoutScreen" style="display: none;">
+        <div class="card">
         <h2>Catat Latihan</h2>
         <form id="gymForm">
             <div class="form-group">
@@ -450,6 +587,20 @@
         </div>
         <div id="historyMessage"
             style="text-align: center; color: #a0a0b5; margin-top: 15px; font-weight: 500; font-size: 14px;"></div>
+    </div>
+    </div> <!-- End of workoutScreen -->
+
+    <!-- Rest Timer Modal -->
+    <div id="restTimerModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <h4>Waktu Istirahat</h4>
+            <div class="rest-time-display" id="restTimerDisplay">03:00</div>
+            <div class="rest-controls">
+                <button type="button" class="btn-time-adjust" onclick="adjustRest(-30)">-30s</button>
+                <button type="button" class="btn-time-adjust" onclick="adjustRest(30)">+30s</button>
+            </div>
+            <button type="button" class="btn-skip" id="btnSkipRest">Skip Timer</button>
+        </div>
     </div>
 
     <script>
@@ -586,6 +737,8 @@
                     const currentSets = parseInt(document.getElementById('sets').value) || 1;
                     document.getElementById('sets').value = currentSets + 1;
 
+                    showRestTimer();
+
                     setTimeout(() => {
                         messageDiv.innerText = "";
                     }, 3000);
@@ -679,6 +832,93 @@
                     historyMessage.style.color = '#ef4444';
                 });
         });
+
+        // ---------------------------------------------------------
+        // Timers Logic (Global & Rest)
+        // ---------------------------------------------------------
+        let globalTimerInterval;
+        let globalSeconds = 0;
+
+        const startScreen = document.getElementById('startScreen');
+        const workoutHeader = document.getElementById('workoutHeader');
+        const workoutScreen = document.getElementById('workoutScreen');
+        const overallTimerDisplay = document.getElementById('overallTimerDisplay');
+
+        function formatTime(totalSeconds) {
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
+            if (h > 0) {
+                return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            }
+            return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        document.getElementById('btnStartWorkout').addEventListener('click', () => {
+            startScreen.style.display = 'none';
+            workoutHeader.style.display = 'flex';
+            workoutScreen.style.display = 'block';
+
+            globalSeconds = 0;
+            overallTimerDisplay.innerText = "00:00";
+            clearInterval(globalTimerInterval);
+            globalTimerInterval = setInterval(() => {
+                globalSeconds++;
+                overallTimerDisplay.innerText = formatTime(globalSeconds);
+            }, 1000);
+        });
+
+        document.getElementById('btnEndWorkout').addEventListener('click', () => {
+            if (confirm('Akhiri latihan sekarang?')) {
+                clearInterval(globalTimerInterval);
+                workoutHeader.style.display = 'none';
+                workoutScreen.style.display = 'none';
+                startScreen.style.display = 'block';
+                document.getElementById('gymForm').reset();
+                document.getElementById('historySection').style.display = 'none';
+            }
+        });
+
+        let restTimerInterval;
+        let restSeconds = 180;
+        const restTimerModal = document.getElementById('restTimerModal');
+        const restTimerDisplay = document.getElementById('restTimerDisplay');
+
+        function showRestTimer() {
+            restSeconds = 180; // 3 menit
+            updateRestDisplay();
+            restTimerModal.style.display = 'flex';
+            
+            clearInterval(restTimerInterval);
+            restTimerInterval = setInterval(() => {
+                restSeconds--;
+                updateRestDisplay();
+                
+                if (restSeconds <= 0) {
+                    endRestTimer();
+                }
+            }, 1000);
+        }
+
+        function updateRestDisplay() {
+            const m = Math.floor(restSeconds / 60);
+            const s = restSeconds % 60;
+            restTimerDisplay.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function adjustRest(seconds) {
+            restSeconds += seconds;
+            if (restSeconds < 0) restSeconds = 0;
+            updateRestDisplay();
+        }
+
+        function endRestTimer() {
+            clearInterval(restTimerInterval);
+            restTimerModal.style.display = 'none';
+        }
+
+        document.getElementById('btnSkipRest').addEventListener('click', endRestTimer);
+
     </script>
 </body>
 
