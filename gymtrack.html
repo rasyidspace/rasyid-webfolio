@@ -347,12 +347,60 @@
             font-weight: 500;
         }
 
+        .timer-ring-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto 25px auto;
+            width: 200px;
+            height: 200px;
+        }
+
+        .progress-ring {
+            position: absolute;
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring__circle {
+            stroke-dasharray: 534;
+            stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
+            filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.5));
+        }
+
         .rest-time-display {
-            font-size: 48px;
+            font-size: 38px;
             font-weight: 700;
             color: #f0f0f5;
-            margin-bottom: 20px;
             font-variant-numeric: tabular-nums;
+            z-index: 10;
+            animation: breathe 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes breathe {
+            0% { text-shadow: 0 0 8px rgba(0, 212, 255, 0.2); opacity: 0.95; transform: scale(0.98); }
+            100% { text-shadow: 0 0 16px rgba(0, 212, 255, 0.7); opacity: 1; transform: scale(1.02); }
+        }
+
+        .timer-ring-container.time-warning .progress-ring__circle {
+            stroke: #ef4444;
+            filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.8));
+            animation: pulse-danger 0.5s ease-in-out infinite alternate;
+        }
+
+        .timer-ring-container.time-warning .rest-time-display {
+            color: #ef4444;
+            animation: text-danger 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-danger {
+            0% { filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5)); stroke-width: 8; }
+            100% { filter: drop-shadow(0 0 18px rgba(239, 68, 68, 1)); stroke-width: 10; }
+        }
+        @keyframes text-danger {
+            0% { text-shadow: 0 0 8px rgba(239, 68, 68, 0.5); transform: scale(1); }
+            100% { text-shadow: 0 0 16px rgba(239, 68, 68, 0.9); transform: scale(1.1); }
         }
 
         .rest-controls {
@@ -631,7 +679,13 @@
     <div id="restTimerModal" class="modal-overlay" style="display: none;">
         <div class="modal-card">
             <h4>Waktu Istirahat</h4>
-            <div class="rest-time-display" id="restTimerDisplay">03:00</div>
+            <div class="timer-ring-container">
+                <svg class="progress-ring" width="200" height="200">
+                    <circle class="progress-ring__circle-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="8" fill="transparent" r="85" cx="100" cy="100"/>
+                    <circle id="progressRing" class="progress-ring__circle" stroke="#00d4ff" stroke-width="8" fill="transparent" r="85" cx="100" cy="100" stroke-linecap="round"/>
+                </svg>
+                <div class="rest-time-display" id="restTimerDisplay">03:00</div>
+            </div>
             <div class="rest-controls">
                 <button type="button" class="btn-time-adjust" onclick="adjustRest(-30)">-30s</button>
                 <button type="button" class="btn-time-adjust" onclick="adjustRest(30)">+30s</button>
@@ -1009,17 +1063,22 @@
 
         let restTimerInterval;
         let restSeconds = 180;
+        let totalRestTime = 180;
         const restTimerModal = document.getElementById('restTimerModal');
         const restTimerDisplay = document.getElementById('restTimerDisplay');
+        const progressRing = document.getElementById('progressRing');
+        const timerRingContainer = document.querySelector('.timer-ring-container');
 
         function showRestTimer() {
-            restSeconds = 180; // 3 menit
+            totalRestTime = 180;
+            restSeconds = totalRestTime;
             updateRestDisplay();
             restTimerModal.style.display = 'flex';
             
             clearInterval(restTimerInterval);
             restTimerInterval = setInterval(() => {
                 restSeconds--;
+                if (restSeconds < 0) restSeconds = 0;
                 updateRestDisplay();
                 
                 if (restSeconds <= 0) {
@@ -1032,11 +1091,29 @@
             const m = Math.floor(restSeconds / 60);
             const s = restSeconds % 60;
             restTimerDisplay.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            
+            if (progressRing) {
+                let percent = restSeconds / totalRestTime;
+                if (percent > 1) percent = 1;
+                if (percent < 0) percent = 0;
+                
+                const offset = 534 - (percent * 534);
+                progressRing.style.strokeDashoffset = offset;
+
+                if (restSeconds <= 10 && restSeconds > 0) {
+                    timerRingContainer.classList.add('time-warning');
+                } else {
+                    timerRingContainer.classList.remove('time-warning');
+                }
+            }
         }
 
         function adjustRest(seconds) {
             restSeconds += seconds;
             if (restSeconds < 0) restSeconds = 0;
+            totalRestTime += seconds;
+            if (totalRestTime < 1) totalRestTime = 1;
+
             updateRestDisplay();
         }
 
