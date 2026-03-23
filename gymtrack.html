@@ -894,25 +894,42 @@
             return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
         }
 
-        document.getElementById('btnStartWorkout').addEventListener('click', () => {
+        function startWorkoutTimer(startTimeTimestamp) {
             startScreen.style.display = 'none';
             workoutHeader.style.display = 'flex';
             workoutScreen.style.display = 'block';
 
-            globalSeconds = 0;
-            overallTimerDisplay.innerText = "00:00";
             clearInterval(globalTimerInterval);
+            
+            const now = Math.floor(Date.now() / 1000);
+            globalSeconds = now - startTimeTimestamp;
+            if (globalSeconds < 0) globalSeconds = 0;
+            
+            overallTimerDisplay.innerText = formatTime(globalSeconds);
             globalTimerInterval = setInterval(() => {
                 globalSeconds++;
                 overallTimerDisplay.innerText = formatTime(globalSeconds);
             }, 1000);
+        }
 
+        // INIT CHECK ON LOAD
+        const savedStartTime = localStorage.getItem('gymtrack_workout_start');
+        if (savedStartTime) {
+            startWorkoutTimer(parseInt(savedStartTime, 10));
+            loadTodayHistory();
+        }
+
+        document.getElementById('btnStartWorkout').addEventListener('click', () => {
+            const startTs = Math.floor(Date.now() / 1000);
+            localStorage.setItem('gymtrack_workout_start', startTs.toString());
+            startWorkoutTimer(startTs);
             loadTodayHistory();
         });
 
         document.getElementById('btnEndWorkout').addEventListener('click', () => {
             if (confirm('Akhiri latihan sekarang?')) {
                 clearInterval(globalTimerInterval);
+                localStorage.removeItem('gymtrack_workout_start');
                 workoutHeader.style.display = 'none';
                 workoutScreen.style.display = 'none';
                 startScreen.style.display = 'block';
