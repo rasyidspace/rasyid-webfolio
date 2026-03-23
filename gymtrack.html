@@ -53,6 +53,7 @@
             margin-bottom: 25px;
             background: linear-gradient(135deg, #00d4ff, #7c3aed);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size: 24px;
         }
@@ -314,7 +315,10 @@
         /* Modal Rest Timer */
         .modal-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(6, 6, 11, 0.85);
             backdrop-filter: blur(8px);
             display: flex;
@@ -336,8 +340,15 @@
         }
 
         @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .modal-card h4 {
@@ -379,8 +390,17 @@
         }
 
         @keyframes breathe {
-            0% { text-shadow: 0 0 8px rgba(0, 212, 255, 0.2); opacity: 0.95; transform: scale(0.98); }
-            100% { text-shadow: 0 0 16px rgba(0, 212, 255, 0.7); opacity: 1; transform: scale(1.02); }
+            0% {
+                text-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+                opacity: 0.95;
+                transform: scale(0.98);
+            }
+
+            100% {
+                text-shadow: 0 0 16px rgba(0, 212, 255, 0.7);
+                opacity: 1;
+                transform: scale(1.02);
+            }
         }
 
         .timer-ring-container.time-warning .progress-ring__circle {
@@ -395,12 +415,27 @@
         }
 
         @keyframes pulse-danger {
-            0% { filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5)); stroke-width: 8; }
-            100% { filter: drop-shadow(0 0 18px rgba(239, 68, 68, 1)); stroke-width: 10; }
+            0% {
+                filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5));
+                stroke-width: 8;
+            }
+
+            100% {
+                filter: drop-shadow(0 0 18px rgba(239, 68, 68, 1));
+                stroke-width: 10;
+            }
         }
+
         @keyframes text-danger {
-            0% { text-shadow: 0 0 8px rgba(239, 68, 68, 0.5); transform: scale(1); }
-            100% { text-shadow: 0 0 16px rgba(239, 68, 68, 0.9); transform: scale(1.1); }
+            0% {
+                text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+                transform: scale(1);
+            }
+
+            100% {
+                text-shadow: 0 0 16px rgba(239, 68, 68, 0.9);
+                transform: scale(1.1);
+            }
         }
 
         .rest-controls {
@@ -420,6 +455,7 @@
             font-weight: 600;
             cursor: pointer;
         }
+
         .btn-time-adjust:hover {
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
@@ -434,6 +470,7 @@
             cursor: pointer;
             text-decoration: underline;
         }
+
         .btn-skip:hover {
             color: #a0a0b5;
         }
@@ -442,12 +479,17 @@
             table-layout: fixed;
             width: 100%;
         }
-        .wrap-table th, .wrap-table td {
+
+        .wrap-table th,
+        .wrap-table td {
             white-space: normal;
             word-wrap: break-word;
             padding: 10px 8px;
         }
-        .wrap-table th { font-size: 13px; }
+
+        .wrap-table th {
+            font-size: 13px;
+        }
 
         .history-card {
             padding: 24px;
@@ -523,27 +565,48 @@
     <div id="startScreen" class="card" style="text-align: center; margin-top: 15vh;">
         <h2 style="margin-bottom: 10px; font-size: 28px;">Gym Tracker</h2>
         <p style="color: #a0a0b5; margin-bottom: 30px; font-size: 14px;">Siap untuk menghancurkan rekor hari ini?</p>
-        
+
         <!-- Default Start Button -->
-        <button type="button" class="btn-submit" id="btnStartWorkout" style="padding: 18px; font-size: 18px; display: inline-flex; width: auto; min-width: 200px; justify-content: center; margin: auto;">
-            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <button type="button" class="btn-submit" id="btnStartWorkout"
+            style="padding: 18px; font-size: 18px; display: inline-flex; width: auto; min-width: 200px; justify-content: center; margin: auto;">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                style="margin-right: 8px;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+                </path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
             START WORKOUT
         </button>
 
         <!-- Resume Actions (Hidden by default) -->
-        <div id="resumeActions" style="display: none; flex-direction: column; align-items: center; gap: 12px; margin-top: 10px;">
-            <button type="button" class="btn-submit" id="btnResumeWorkout" style="background: linear-gradient(135deg, #10b981, #059669); padding: 18px; font-size: 18px; display: inline-flex; width: auto; min-width: 200px; justify-content: center; margin: auto; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <div id="resumeActions"
+            style="display: none; flex-direction: column; align-items: center; gap: 12px; margin-top: 10px;">
+            <button type="button" class="btn-submit" id="btnResumeWorkout"
+                style="background: linear-gradient(135deg, #10b981, #059669); padding: 18px; font-size: 18px; display: inline-flex; width: auto; min-width: 200px; justify-content: center; margin: auto; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    style="margin-right: 8px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
                 RESUME WORKOUT
             </button>
-            <button type="button" id="btnResetWorkout" style="background: transparent; border: none; color: #ef4444; font-size: 14px; text-decoration: underline; cursor: pointer; padding: 5px; font-weight: 500;">Reset & Mulai Baru</button>
+            <button type="button" id="btnResetWorkout"
+                style="background: transparent; border: none; color: #ef4444; font-size: 14px; text-decoration: underline; cursor: pointer; padding: 5px; font-weight: 500;">Reset
+                & Mulai Baru</button>
         </div>
 
         <div style="margin-top: 25px;">
-            <button type="button" id="btnHistory" class="btn-secondary" style="width: auto; padding: 10px 20px; font-size: 14px;">Lihat Training History</button>
+            <button type="button" id="btnHistory" class="btn-secondary"
+                style="width: auto; padding: 10px 20px; font-size: 14px;">Lihat Training History</button>
         </div>
 
-        <div class="history-card" id="historySection" style="display: none; padding: 0; box-shadow: none; background: transparent; border: none; margin-top: 30px; text-align: left;">
+        <div class="history-card" id="historySection"
+            style="display: none; padding: 0; box-shadow: none; background: transparent; border: none; margin-top: 30px; text-align: left;">
             <h3 style="text-align: center;">Seluruh Riwayat Latihan</h3>
             <div class="table-responsive">
                 <table>
@@ -562,7 +625,8 @@
                     </tbody>
                 </table>
             </div>
-            <div id="historyMessage" style="text-align: center; color: #a0a0b5; margin-top: 15px; font-weight: 500; font-size: 14px;"></div>
+            <div id="historyMessage"
+                style="text-align: center; color: #a0a0b5; margin-top: 15px; font-weight: 500; font-size: 14px;"></div>
         </div>
     </div>
 
@@ -577,112 +641,142 @@
     <!-- Active Workout Form Container -->
     <div id="workoutScreen" style="display: none;">
         <div class="card">
-        <h2>Catat Latihan</h2>
-        <form id="gymForm">
-            <div class="form-group">
-                <label>Jadwal</label>
-                <div class="jadwal-grid">
-                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Push Day', this)">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16V8"/><path d="M8 12l4-4 4 4"/></svg>
-                        <span>Push Day</span>
-                    </button>
-                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Pull Day', this)">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12l4 4 4-4"/></svg>
-                        <span>Pull Day</span>
-                    </button>
-                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Leg Day', this)">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                        <span>Leg Day</span>
-                    </button>
-                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Shoulder Day', this)">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                        <span>Shoulder Day</span>
-                    </button>
-                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Upper Body', this)">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                        <span>Upper Body</span>
-                    </button>
-                    <button type="button" class="jadwal-btn" onclick="selectJadwal('Rest Day', this)">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                        <span>Rest Day</span>
-                    </button>
+            <h2>Catat Latihan</h2>
+            <form id="gymForm">
+                <div class="form-group">
+                    <label>Jadwal</label>
+                    <div class="jadwal-grid">
+                        <button type="button" class="jadwal-btn" onclick="selectJadwal('Push Day', this)">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 16V8" />
+                                <path d="M8 12l4-4 4 4" />
+                            </svg>
+                            <span>Push Day</span>
+                        </button>
+                        <button type="button" class="jadwal-btn" onclick="selectJadwal('Pull Day', this)">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 8v8" />
+                                <path d="M8 12l4 4 4-4" />
+                            </svg>
+                            <span>Pull Day</span>
+                        </button>
+                        <button type="button" class="jadwal-btn" onclick="selectJadwal('Leg Day', this)">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                            </svg>
+                            <span>Leg Day</span>
+                        </button>
+                        <button type="button" class="jadwal-btn" onclick="selectJadwal('Shoulder Day', this)">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <circle cx="12" cy="12" r="6" />
+                                <circle cx="12" cy="12" r="2" />
+                            </svg>
+                            <span>Shoulder Day</span>
+                        </button>
+                        <button type="button" class="jadwal-btn" onclick="selectJadwal('Upper Body', this)">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                            </svg>
+                            <span>Upper Body</span>
+                        </button>
+                        <button type="button" class="jadwal-btn" onclick="selectJadwal('Rest Day', this)">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                stroke-width="2">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                            </svg>
+                            <span>Rest Day</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="jadwal" id="jadwalInput">
                 </div>
-                <input type="hidden" name="jadwal" id="jadwalInput">
-            </div>
-            <div class="form-group">
-                <label>Latihan</label>
-                <select name="exercise" id="exerciseSelect" required>
-                    <option value="" disabled selected>Pilih Jadwal Terlebih Dahulu</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Sets</label>
-                <div class="number-input-group">
-                    <button type="button" onclick="updateNumber('sets', -1)">-</button>
-                    <input type="number" id="sets" name="sets" value="1" min="1" required>
-                    <button type="button" onclick="updateNumber('sets', 1)">+</button>
+                <div class="form-group">
+                    <label>Latihan</label>
+                    <select name="exercise" id="exerciseSelect" required>
+                        <option value="" disabled selected>Pilih Jadwal Terlebih Dahulu</option>
+                    </select>
                 </div>
-            </div>
-            <div class="form-group">
-                <label>Reps</label>
-                <div class="number-input-group">
-                    <button type="button" onclick="updateNumber('reps', -1)">-</button>
-                    <input type="number" id="reps" name="reps" value="10" min="0" required>
-                    <button type="button" onclick="updateNumber('reps', 1)">+</button>
+                <div class="form-group">
+                    <label>Sets</label>
+                    <div class="number-input-group">
+                        <button type="button" onclick="updateNumber('sets', -1)">-</button>
+                        <input type="number" id="sets" name="sets" value="0" min="0" required>
+                        <button type="button" onclick="updateNumber('sets', 1)">+</button>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label>Berat (Kg)</label>
-                <div class="number-input-group">
-                    <button type="button" onclick="updateNumber('weight', -2.5, true)">-</button>
-                    <input type="number" step="0.5" id="weight" name="weight" value="0" min="0" required>
-                    <button type="button" onclick="updateNumber('weight', 2.5, true)">+</button>
+                <div class="form-group">
+                    <label>Reps</label>
+                    <div class="number-input-group">
+                        <button type="button" onclick="updateNumber('reps', -1)">-</button>
+                        <input type="number" id="reps" name="reps" value="0" min="0" required>
+                        <button type="button" onclick="updateNumber('reps', 1)">+</button>
+                    </div>
                 </div>
-                <small id="lastRecord"
-                    style="color: #00d4ff; display: block; margin-top: 8px; text-align: center; font-weight: 500; min-height: 18px;"></small>
+                <div class="form-group">
+                    <label>Berat (Kg)</label>
+                    <div class="number-input-group">
+                        <button type="button" onclick="updateNumber('weight', -2.5, true)">-</button>
+                        <input type="number" step="0.5" id="weight" name="weight" value="0" min="0" required>
+                        <button type="button" onclick="updateNumber('weight', 2.5, true)">+</button>
+                    </div>
+                    <small id="lastRecord"
+                        style="color: #00d4ff; display: block; margin-top: 8px; text-align: center; font-weight: 500; min-height: 18px;"></small>
 
-                <div class="quick-weights">
-                    <button type="button" class="quick-weight-btn" onclick="setWeight(5)">5</button>
-                    <button type="button" class="quick-weight-btn" onclick="setWeight(10)">10</button>
-                    <button type="button" class="quick-weight-btn" onclick="setWeight(15)">15</button>
-                    <button type="button" class="quick-weight-btn" onclick="setWeight(20)">20</button>
-                    <button type="button" class="quick-weight-btn" onclick="setWeight(25)">25</button>
-                    <button type="button" class="quick-weight-btn" onclick="setWeight(30)">30</button>
-                    <button type="button" class="quick-weight-btn" onclick="setWeight(35)">35</button>
-                    <button type="button" class="quick-weight-btn" onclick="setWeight(40)">40</button>
-                    <button type="button" class="quick-weight-btn" onclick="setWeight(45)">45</button>
-                    <button type="button" class="quick-weight-btn" onclick="setWeight(50)">50</button>
+                    <div class="quick-weights">
+                        <button type="button" class="quick-weight-btn" onclick="setWeight(5)">5</button>
+                        <button type="button" class="quick-weight-btn" onclick="setWeight(10)">10</button>
+                        <button type="button" class="quick-weight-btn" onclick="setWeight(15)">15</button>
+                        <button type="button" class="quick-weight-btn" onclick="setWeight(20)">20</button>
+                        <button type="button" class="quick-weight-btn" onclick="setWeight(25)">25</button>
+                        <button type="button" class="quick-weight-btn" onclick="setWeight(30)">30</button>
+                        <button type="button" class="quick-weight-btn" onclick="setWeight(35)">35</button>
+                        <button type="button" class="quick-weight-btn" onclick="setWeight(40)">40</button>
+                        <button type="button" class="quick-weight-btn" onclick="setWeight(45)">45</button>
+                        <button type="button" class="quick-weight-btn" onclick="setWeight(50)">50</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="submit-group" style="margin-top: 15px;">
-                <button type="submit" id="submitBtn" class="btn-submit" style="width: 100%;">Simpan ke Sheets</button>
-            </div>
-        </form>
-        <div id="message"></div>
-    </div>
-
-    <!-- History Today Table -->
-    <div class="card history-card" id="todayHistorySection" style="margin-top: 24px; display: block; padding-top: 15px;">
-        <h3 style="font-size: 16px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
-            Sesi Hari Ini <span id="todayCount" style="color:#00d4ff; font-size: 14px; font-weight: normal; float: right;">(0)</span>
-        </h3>
-        <div class="table-responsive wrap-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 45%;">Latihan</th>
-                        <th style="text-align: center;">Set</th>
-                        <th style="text-align: center;">Rep</th>
-                        <th style="text-align: right;">Kg</th>
-                    </tr>
-                </thead>
-                <tbody id="todayHistoryBody">
-                    <tr><td colspan="4" style="text-align: center; color: #6a6a80;">Belum ada catatan hari ini</td></tr>
-                </tbody>
-            </table>
+                <div class="submit-group" style="margin-top: 15px;">
+                    <button type="submit" id="submitBtn" class="btn-submit" style="width: 100%;">Simpan ke
+                        Sheets</button>
+                </div>
+            </form>
+            <div id="message"></div>
         </div>
-    </div>
+
+        <!-- History Today Table -->
+        <div class="card history-card" id="todayHistorySection"
+            style="margin-top: 24px; display: block; padding-top: 15px;">
+            <h3
+                style="font-size: 16px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                Sesi Hari Ini <span id="todayCount"
+                    style="color:#00d4ff; font-size: 14px; font-weight: normal; float: right;">(0)</span>
+            </h3>
+            <div class="table-responsive wrap-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 45%;">Latihan</th>
+                            <th style="text-align: center;">Set</th>
+                            <th style="text-align: center;">Rep</th>
+                            <th style="text-align: right;">Kg</th>
+                        </tr>
+                    </thead>
+                    <tbody id="todayHistoryBody">
+                        <tr>
+                            <td colspan="4" style="text-align: center; color: #6a6a80;">Belum ada catatan hari ini</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div> <!-- End of workoutScreen -->
 
     <!-- Rest Timer Modal -->
@@ -691,8 +785,10 @@
             <h4>Waktu Istirahat</h4>
             <div class="timer-ring-container">
                 <svg class="progress-ring" width="200" height="200">
-                    <circle class="progress-ring__circle-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="8" fill="transparent" r="85" cx="100" cy="100"/>
-                    <circle id="progressRing" class="progress-ring__circle" stroke="#00d4ff" stroke-width="8" fill="transparent" r="85" cx="100" cy="100" stroke-linecap="round"/>
+                    <circle class="progress-ring__circle-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="8"
+                        fill="transparent" r="85" cx="100" cy="100" />
+                    <circle id="progressRing" class="progress-ring__circle" stroke="#00d4ff" stroke-width="8"
+                        fill="transparent" r="85" cx="100" cy="100" stroke-linecap="round" />
                 </svg>
                 <div class="rest-time-display" id="restTimerDisplay">03:00</div>
             </div>
@@ -830,28 +926,28 @@
                 body: formData
             })
                 .then(response => {
-                        messageDiv.innerText = "✅ Berhasil dicatat!";
-                        messageDiv.style.color = "#10b981";
-                        submitBtn.innerText = "Simpan ke Sheets";
-                        submitBtn.disabled = false;
+                    messageDiv.innerText = "✅ Berhasil dicatat!";
+                    messageDiv.style.color = "#10b981";
+                    submitBtn.innerText = "Simpan ke Sheets";
+                    submitBtn.disabled = false;
 
-                        const activeLatihan = document.getElementById('exerciseSelect') ? document.getElementById('exerciseSelect').value : '-';
-                        const activeSets = document.getElementById('sets') ? document.getElementById('sets').value : '1';
-                        const activeReps = document.getElementById('reps') ? document.getElementById('reps').value : '1';
-                        const activeBerat = document.getElementById('weight') ? document.getElementById('weight').value : '0';
-                        
-                        try {
-                            appendTodayHistoryLocal(activeLatihan, activeSets, activeReps, activeBerat);
-                            const currentSets = parseInt(activeSets) || 1;
-                            document.getElementById('sets').value = currentSets + 1;
-                            showRestTimer();
-                        } catch (err) {
-                            console.error('JS error after fetch:', err);
-                        }
+                    const activeLatihan = document.getElementById('exerciseSelect') ? document.getElementById('exerciseSelect').value : '-';
+                    const activeSets = document.getElementById('sets') ? document.getElementById('sets').value : '1';
+                    const activeReps = document.getElementById('reps') ? document.getElementById('reps').value : '1';
+                    const activeBerat = document.getElementById('weight') ? document.getElementById('weight').value : '0';
 
-                        setTimeout(() => {
-                            messageDiv.innerText = "";
-                        }, 3000);
+                    try {
+                        appendTodayHistoryLocal(activeLatihan, activeSets, activeReps, activeBerat);
+                        const currentSets = parseInt(activeSets) || 1;
+                        document.getElementById('sets').value = currentSets + 1;
+                        showRestTimer();
+                    } catch (err) {
+                        console.error('JS error after fetch:', err);
+                    }
+
+                    setTimeout(() => {
+                        messageDiv.innerText = "";
+                    }, 3000);
                 })
                 .catch(error => {
                     console.error('Error!', error);
@@ -973,7 +1069,7 @@
             if (savedStartTime) {
                 btnStartWorkout.style.display = 'none';
                 resumeActions.style.display = 'flex';
-                
+
                 const now = Math.floor(Date.now() / 1000);
                 let elapsed = now - parseInt(savedStartTime, 10);
                 if (elapsed < 0) elapsed = 0;
@@ -983,7 +1079,7 @@
                 resumeActions.style.display = 'none';
             }
         }
-        
+
         checkResumeState();
 
         function launchWorkout(isResume) {
@@ -992,7 +1088,7 @@
             workoutScreen.style.display = 'block';
 
             clearInterval(globalTimerInterval);
-            
+
             if (isResume) {
                 const savedStartTime = localStorage.getItem('gymtrack_workout_start');
                 const now = Math.floor(Date.now() / 1000);
@@ -1058,7 +1154,7 @@
                                 todaySetCount++;
                                 let b = row.berat;
                                 if (typeof b === 'string' && /^\\d{4}-\\d{2}-\\d{2}T/.test(b)) {
-                                    const dErr = new Date(b); 
+                                    const dErr = new Date(b);
                                     b = !isNaN(dErr.getTime()) ? dErr.getDate() + '.' + (dErr.getMonth() + 1) : '-';
                                 } else if (b !== undefined && b !== null && b !== '') {
                                     b = b.toString().replace(',', '.');
@@ -1093,7 +1189,7 @@
             if (todaySetCount === 0) todayHistoryBody.innerHTML = '';
             todaySetCount++;
             todayCountSpan.innerText = `(${todaySetCount})`;
-            
+
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td style="color:#00d4ff; font-weight:500;">${latihan}</td>
@@ -1117,13 +1213,13 @@
             restSeconds = totalRestTime;
             updateRestDisplay();
             restTimerModal.style.display = 'flex';
-            
+
             clearInterval(restTimerInterval);
             restTimerInterval = setInterval(() => {
                 restSeconds--;
                 if (restSeconds < 0) restSeconds = 0;
                 updateRestDisplay();
-                
+
                 if (restSeconds <= 0) {
                     endRestTimer();
                 }
@@ -1134,12 +1230,12 @@
             const m = Math.floor(restSeconds / 60);
             const s = restSeconds % 60;
             restTimerDisplay.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-            
+
             if (progressRing) {
                 let percent = restSeconds / totalRestTime;
                 if (percent > 1) percent = 1;
                 if (percent < 0) percent = 0;
-                
+
                 const offset = 534 - (percent * 534);
                 progressRing.style.strokeDashoffset = offset;
 
@@ -1160,12 +1256,27 @@
             updateRestDisplay();
         }
 
-        function endRestTimer() {
+        function endRestTimer(isSkipped = false) {
             clearInterval(restTimerInterval);
             restTimerModal.style.display = 'none';
+
+            if (!isSkipped) {
+                // Play sound
+                try {
+                    const audio = new Audio('audio/timer-end.mp3');
+                    audio.play().catch(e => console.log('Audio play failed:', e));
+                } catch (e) {
+                    console.log('Audio error:', e);
+                }
+
+                // Vibrate (Supported Devices)
+                if ("vibrate" in navigator) {
+                    navigator.vibrate([300, 150, 300, 150, 500]);
+                }
+            }
         }
 
-        document.getElementById('btnSkipRest').addEventListener('click', endRestTimer);
+        document.getElementById('btnSkipRest').addEventListener('click', () => endRestTimer(true));
 
     </script>
 </body>
