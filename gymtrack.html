@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -557,14 +557,14 @@
                 style="margin-right: 6px;">
                 <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
-            Kembali ke Home
+            Back to Home
         </a>
     </div>
 
     <!-- Start Screen -->
     <div id="startScreen" class="card" style="text-align: center; margin-top: 15vh;">
         <h2 style="margin-bottom: 10px; font-size: 28px;">Gym Tracker</h2>
-        <p style="color: #a0a0b5; margin-bottom: 30px; font-size: 14px;">Siap untuk menghancurkan rekor hari ini?</p>
+        <p style="color: #a0a0b5; margin-bottom: 30px; font-size: 14px;">Ready to crush your records today?</p>
 
         <!-- Default Start Button -->
         <button type="button" class="btn-submit" id="btnStartWorkout"
@@ -597,27 +597,27 @@
             </button>
             <button type="button" id="btnResetWorkout"
                 style="background: transparent; border: none; color: #ef4444; font-size: 14px; text-decoration: underline; cursor: pointer; padding: 5px; font-weight: 500;">Reset
-                & Mulai Baru</button>
+                & Start Fresh</button>
         </div>
 
         <div style="margin-top: 25px;">
             <button type="button" id="btnHistory" class="btn-secondary"
-                style="width: auto; padding: 10px 20px; font-size: 14px;">Lihat Training History</button>
+                style="width: auto; padding: 10px 20px; font-size: 14px;">View Training History</button>
         </div>
 
         <div class="history-card" id="historySection"
             style="display: none; padding: 0; box-shadow: none; background: transparent; border: none; margin-top: 30px; text-align: left;">
-            <h3 style="text-align: center;">Seluruh Riwayat Latihan</h3>
+            <h3 style="text-align: center;">Complete Training History</h3>
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
-                            <th>Waktu</th>
-                            <th>Jadwal</th>
-                            <th>Latihan</th>
+                            <th>Time</th>
+                            <th>Schedule</th>
+                            <th>Exercise</th>
                             <th>Sets</th>
                             <th>Reps</th>
-                            <th>Berat (Kg)</th>
+                            <th>Weight (Kg)</th>
                         </tr>
                     </thead>
                     <tbody id="historyBody">
@@ -641,10 +641,10 @@
     <!-- Active Workout Form Container -->
     <div id="workoutScreen" style="display: none;">
         <div class="card">
-            <h2>Catat Latihan</h2>
+            <h2>Log Workout</h2>
             <form id="gymForm">
                 <div class="form-group">
-                    <label>Jadwal</label>
+                    <label>Schedule</label>
                     <div class="jadwal-grid">
                         <button type="button" class="jadwal-btn" onclick="selectJadwal('Push Day', this)">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -698,9 +698,9 @@
                     <input type="hidden" name="jadwal" id="jadwalInput">
                 </div>
                 <div class="form-group">
-                    <label>Latihan</label>
+                    <label>Exercise</label>
                     <select name="exercise" id="exerciseSelect" required>
-                        <option value="" disabled selected>Pilih Jadwal Terlebih Dahulu</option>
+                        <option value="" disabled selected>Select Schedule First</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -720,7 +720,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Berat (Kg)</label>
+                    <label>Weight (Kg)</label>
                     <div class="number-input-group">
                         <button type="button" onclick="updateNumber('weight', -2.5, true)">-</button>
                         <input type="number" step="0.5" id="weight" name="weight" value="0" min="0" required>
@@ -744,7 +744,7 @@
                 </div>
 
                 <div class="submit-group" style="margin-top: 15px;">
-                    <button type="submit" id="submitBtn" class="btn-submit" style="width: 100%;">Simpan ke
+                    <button type="submit" id="submitBtn" class="btn-submit" style="width: 100%;">Save to
                         Sheets</button>
                 </div>
             </form>
@@ -756,14 +756,14 @@
             style="margin-top: 24px; display: block; padding-top: 15px;">
             <h3
                 style="font-size: 16px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
-                Sesi Hari Ini <span id="todayCount"
+                Today's Session <span id="todayCount"
                     style="color:#00d4ff; font-size: 14px; font-weight: normal; float: right;">(0)</span>
             </h3>
             <div class="table-responsive wrap-table">
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 45%;">Latihan</th>
+                            <th style="width: 45%;">Exercise</th>
                             <th style="text-align: center;">Set</th>
                             <th style="text-align: center;">Rep</th>
                             <th style="text-align: right;">Kg</th>
@@ -771,7 +771,7 @@
                     </thead>
                     <tbody id="todayHistoryBody">
                         <tr>
-                            <td colspan="4" style="text-align: center; color: #6a6a80;">Belum ada catatan hari ini</td>
+                            <td colspan="4" style="text-align: center; color: #6a6a80;">No records for today yet</td>
                         </tr>
                     </tbody>
                 </table>
@@ -782,7 +782,7 @@
     <!-- Rest Timer Modal -->
     <div id="restTimerModal" class="modal-overlay" style="display: none;">
         <div class="modal-card">
-            <h4>Waktu Istirahat</h4>
+            <h4>Rest Time</h4>
             <div class="timer-ring-container">
                 <svg class="progress-ring" width="200" height="200">
                     <circle class="progress-ring__circle-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="8"
@@ -805,7 +805,7 @@
 
         const workouts = {
             "Push Day": [
-                "Incline Dumbell Press", "Flat Smith Press", "Cable Fly (Lower Chest)",
+                "Incline Dumbell Press", "Flat Smith Press", "Lower Chest Press",
                 "Pec Fly", "Cable Triceps Extension", "Cable Overhead Triceps Extension"
             ],
             "Pull Day": [
@@ -839,7 +839,7 @@
             jadwalInput.value = jadwal;
 
             const options = workouts[jadwal] || [];
-            exerciseSelect.innerHTML = '<option value="" disabled selected>Pilih Latihan</option>';
+            exerciseSelect.innerHTML = '<option value="" disabled selected>Select Exercise</option>';
             options.forEach(exercise => {
                 const opt = document.createElement('option');
                 opt.value = exercise;
@@ -855,7 +855,7 @@
 
             if (!selectedExercise) return;
 
-            lastRecordLabel.innerText = 'Memuat data...';
+            lastRecordLabel.innerText = 'Loading data...';
             lastRecordLabel.style.color = '#6a6a80';
 
             fetch(`${SCRIPT_URL}?exercise=${encodeURIComponent(selectedExercise)}`, {
@@ -876,13 +876,13 @@
                         lastRecordLabel.innerText = `Last Record - ${selectedExercise} : ${lastBerat} Kg`;
                         lastRecordLabel.style.color = '#00d4ff';
                     } else {
-                        lastRecordLabel.innerText = `Belum ada riwayat untuk ${selectedExercise}`;
+                        lastRecordLabel.innerText = `No history for ${selectedExercise}`;
                         lastRecordLabel.style.color = '#6a6a80';
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
-                    lastRecordLabel.innerText = 'Gagal memuat Last Record';
+                    lastRecordLabel.innerText = 'Failed to load Last Record';
                     lastRecordLabel.style.color = '#ef4444';
                 });
         });
@@ -913,7 +913,7 @@
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            submitBtn.innerText = "Menyimpan...";
+            submitBtn.innerText = "Saving...";
             submitBtn.disabled = true;
             messageDiv.innerText = "";
 
@@ -926,9 +926,9 @@
                 body: formData
             })
                 .then(response => {
-                    messageDiv.innerText = "✅ Berhasil dicatat!";
+                    messageDiv.innerText = "✅ Logged successfully!";
                     messageDiv.style.color = "#10b981";
-                    submitBtn.innerText = "Simpan ke Sheets";
+                    submitBtn.innerText = "Save to Sheets";
                     submitBtn.disabled = false;
 
                     const activeLatihan = document.getElementById('exerciseSelect') ? document.getElementById('exerciseSelect').value : '-';
@@ -951,9 +951,9 @@
                 })
                 .catch(error => {
                     console.error('Error!', error);
-                    messageDiv.innerText = "⚠️ Terjadi kesalahan: " + (error.message || error);
+                    messageDiv.innerText = "⚠️ An error occurred: " + (error.message || error);
                     messageDiv.style.color = "#ef4444";
-                    submitBtn.innerText = "Simpan ke Sheets";
+                    submitBtn.innerText = "Save to Sheets";
                     submitBtn.disabled = false;
                 });
         });
@@ -974,7 +974,7 @@
 
             historySection.style.display = 'block';
             historyBody.innerHTML = '';
-            historyMessage.innerText = 'Memuat seluruh data dari Google Sheets...';
+            historyMessage.innerText = 'Loading all data from Google Sheets...';
             historyMessage.style.color = '#00d4ff';
 
             fetch(`${SCRIPT_URL}?action=getAll`, {
@@ -1024,17 +1024,17 @@
                             });
                             historyBody.innerHTML = newRows;
                         } else {
-                            historyMessage.innerText = 'Belum ada data riwayat sama sekali.';
+                            historyMessage.innerText = 'No history data at all yet.';
                             historyMessage.style.color = '#a0a0b5';
                         }
                     } else {
-                        historyMessage.innerText = 'Gagal memuat riwayat.';
+                        historyMessage.innerText = 'Failed to load history.';
                         historyMessage.style.color = '#ef4444';
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching history:', error);
-                    historyMessage.innerText = 'Terjadi kesalahan jaringan saat memuat riwayat.';
+                    historyMessage.innerText = 'A network error occurred while loading history.';
                     historyMessage.style.color = '#ef4444';
                 });
         });
@@ -1113,14 +1113,14 @@
         btnResumeWorkout.addEventListener('click', () => launchWorkout(true));
 
         btnResetWorkout.addEventListener('click', () => {
-            if (confirm('Hapus sesi sebelumnya dan mulai timer dari awal?')) {
+            if (confirm('Delete previous session and start timer from the beginning?')) {
                 localStorage.removeItem('gymtrack_workout_start');
                 checkResumeState();
             }
         });
 
         document.getElementById('btnEndWorkout').addEventListener('click', () => {
-            if (confirm('Akhiri latihan sekarang?')) {
+            if (confirm('End workout now?')) {
                 clearInterval(globalTimerInterval);
                 localStorage.removeItem('gymtrack_workout_start');
                 workoutHeader.style.display = 'none';
@@ -1136,7 +1136,7 @@
         let todaySetCount = 0;
 
         function loadTodayHistory() {
-            todayHistoryBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #00d4ff;">Memuat data hari ini...</td></tr>';
+            todayHistoryBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #00d4ff;">Loading today\'s data...</td></tr>';
             fetch(`${SCRIPT_URL}?action=getAll`, { method: 'GET' })
                 .then(r => r.json())
                 .then(result => {
@@ -1172,7 +1172,7 @@
                         });
 
                         if (todaySetCount === 0) {
-                            todayHistoryBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #6a6a80;">Belum ada catatan hari ini</td></tr>';
+                            todayHistoryBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #6a6a80;">No records for today yet</td></tr>';
                         } else {
                             todayHistoryBody.innerHTML = newRows;
                         }
@@ -1181,7 +1181,7 @@
                 })
                 .catch(e => {
                     console.error(e);
-                    todayHistoryBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #ef4444;">Gagal memuat</td></tr>';
+                    todayHistoryBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #ef4444;">Failed to load</td></tr>';
                 });
         }
 
