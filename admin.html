@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — R24 Studio</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/Icon/icon_meshlab.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-mesh">R24</span> <span class="logo-lab">Studio</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Return to Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Admin Content -->
+    <div class="admin-container">
+
+        <!-- PIN Authentication Screen -->
+        <div class="pin-screen" id="pinScreen">
+            <div class="pin-box">
+                <h2>Admin Login</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 24px;">Please enter your PIN to continue.</p>
+                <div class="admin-form">
+                    <div class="form-group">
+                        <input type="password" id="pinInput" placeholder="Enter PIN" maxlength="6">
+                    </div>
+                    <button class="btn btn-primary btn-full magnetic" id="loginBtn">Verify PIN</button>
+                    <p id="pinError" style="color: #ef4444; margin-top: 12px; display: none; font-size: 0.9rem;">
+                        Incorrect PIN. Try again.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard (Hidden Initially) -->
+        <div class="admin-dashboard" id="adminDashboard">
+            <div class="admin-header">
+                <div>
+                    <h2 class="section-title">Add New <span class="gradient-text">Project</span></h2>
+                    <p class="section-desc">Create a new portfolio entry.</p>
+                </div>
+                <button class="btn btn-outline" id="logoutBtn">Logout</button>
+            </div>
+
+            <div class="admin-card">
+                <h3>Project Details</h3>
+                <form id="portfolioForm" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pTitle">Project Title *</label>
+                            <input type="text" id="pTitle" required placeholder="e.g. Sci-Fi Scythe">
+                        </div>
+                        <div class="form-group">
+                            <label for="pClient">Client *</label>
+                            <input type="text" id="pClient" required placeholder="e.g. Personal Project / Company Name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pCategory">Display Category *</label>
+                            <input type="text" id="pCategory" required placeholder="e.g. Game Asset, Interior Design">
+                        </div>
+                        <div class="form-group">
+                            <label for="pFilter">Filter Category *</label>
+                            <select id="pFilter" required>
+                                <option value="" disabled selected>Select a filter...</option>
+                                <option value="3d-design">3D Design</option>
+                                <option value="interior">Interior</option>
+                                <option value="animation">Animation</option>
+                                <option value="game">Game Dev</option>
+                                <option value="xr">AR / VR</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pTools">Tools Used *</label>
+                            <input type="text" id="pTools" required placeholder="e.g. Blender, Unity, Substance">
+                        </div>
+                        <div class="form-group">
+                            <label for="pDuration">Duration *</label>
+                            <input type="text" id="pDuration" required placeholder="e.g. 2 Weeks">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pShortDesc">Short Description (For Card) *</label>
+                        <textarea id="pShortDesc" required
+                            placeholder="A brief 1-2 sentence description for the project card preview."
+                            rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pFullDesc">Full Description (For Modal) *</label>
+                        <textarea id="pFullDesc" required
+                            placeholder="Provide a detailed explanation of the project context, process, and outcome."
+                            rows="6"></textarea>
+                    </div>
+
+                    <h3 style="margin-top: 40px;">Media Links</h3>
+
+                    <div class="form-group">
+                        <label for="pThumbnail">Thumbnail Image URL *</label>
+                        <input type="url" id="pThumbnail" required placeholder="https://link-to-thumbnail.jpg">
+                        <p style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 4px;">Used as the cover
+                            image in the portfolio grid.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pImages">Gallery Image URLs *</label>
+                        <textarea id="pImages" required
+                            placeholder="https://link-to-img1.jpg&#10;https://link-to-img2.jpg&#10;https://link-to-img3.jpg"
+                            rows="5"></textarea>
+                        <p style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 4px;">Paste the image URLs
+                            used in the details modal. Put each URL on a new line.</p>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="clearFormBtn">Clear Form</button>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Save Project</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                <polyline points="7 3 7 8 15 8"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Submission Success Modal -->
+            <div id="successMessage" style="display: none; margin-top: 24px; padding: 16px; border-radius: 8px; text-align: center; border: 1px solid transparent;"></div>
+
+            <!-- Admin Project List -->
+            <div class="admin-card" style="margin-top: 40px;" id="adminListSection">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3>Manage Projects</h3>
+                    <button class="btn btn-outline" id="refreshListBtn" style="padding: 8px 16px; font-size: 0.9rem;">Refresh List</button>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Thumbnail</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projectsTableBody">
+                            <tr>
+                                <td colspan="4" style="text-align: center; padding: 20px;">Loading projects...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Logic script -->
+    <script>
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby0GIERJt_gUgW6za9bsTWBGv4d5p8dLXZU1Ipxi3EbM0laxbuuPPPD6G6_t5SV3YNQ/exec';
+        let adminProjects = [];
+        let editingId = null;
+
+        // Helper Drive Image
+        function getDirectImageUrl(url) {
+            if (!url) return '';
+            try {
+                const driveRegex1 = /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/;
+                const driveRegex2 = /drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/;
+                let match = url.match(driveRegex1) || url.match(driveRegex2);
+                if (match && match[1]) {
+                    return `https://lh3.googleusercontent.com/d/${match[1]}`;
+                }
+            } catch(e) {}
+            return url;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const DUMMY_PIN = "241202";
+
+            const pinScreen = document.getElementById('pinScreen');
+            const adminDashboard = document.getElementById('adminDashboard');
+            const pinInput = document.getElementById('pinInput');
+            const loginBtn = document.getElementById('loginBtn');
+            const pinError = document.getElementById('pinError');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            const portfolioForm = document.getElementById('portfolioForm');
+            const clearFormBtn = document.getElementById('clearFormBtn');
+            const submitBtn = document.querySelector('#portfolioForm button[type="submit"] span');
+            const actualSubmitBtn = document.querySelector('#portfolioForm button[type="submit"]');
+            const successMessage = document.getElementById('successMessage');
+            
+            const projectsTableBody = document.getElementById('projectsTableBody');
+            const refreshListBtn = document.getElementById('refreshListBtn');
+
+            // --- Authentication Logic ---
+            if (sessionStorage.getItem('adminAuth') === 'true') {
+                showDashboard();
+            }
+
+            function attemptLogin() {
+                if (pinInput.value === DUMMY_PIN) {
+                    sessionStorage.setItem('adminAuth', 'true');
+                    pinInput.value = '';
+                    pinError.style.display = 'none';
+                    showDashboard();
+                } else {
+                    pinError.style.display = 'block';
+                    pinInput.value = '';
+                    pinInput.focus();
+                }
+            }
+
+            loginBtn.addEventListener('click', attemptLogin);
+            pinInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') attemptLogin(); });
+
+            logoutBtn.addEventListener('click', () => {
+                sessionStorage.removeItem('adminAuth');
+                adminDashboard.style.display = 'none';
+                pinScreen.style.display = 'flex';
+            });
+
+            function showDashboard() {
+                pinScreen.style.display = 'none';
+                adminDashboard.style.display = 'block';
+                fetchProjects();
+            }
+
+            // --- Fetch & Render Logic ---
+            async function fetchProjects() {
+                projectsTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">Loading projects...</td></tr>';
+                try {
+                    const res = await fetch(WEB_APP_URL);
+                    const data = await res.json();
+                    adminProjects = data.reverse();
+                    renderTable();
+                } catch (err) {
+                    projectsTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #ef4444; padding: 20px;">Failed to load projects.</td></tr>';
+                }
+            }
+
+            refreshListBtn.addEventListener('click', fetchProjects);
+
+            function renderTable() {
+                if (adminProjects.length === 0) {
+                    projectsTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No projects found in Database.</td></tr>';
+                    return;
+                }
+
+                projectsTableBody.innerHTML = adminProjects.map(p => `
+                    <tr>
+                        <td><img src="${getDirectImageUrl(p.thumbnail)}" alt="Thumb" class="admin-table-thumb" loading="lazy" onerror="this.src='https://via.placeholder.com/60x40'"></td>
+                        <td><strong>${p.title}</strong></td>
+                        <td><span class="overlay-category">${p.category}</span></td>
+                        <td>
+                            <div class="admin-actions">
+                                <div class="admin-btn-icon" onclick="editProject('${p.id}')" title="Edit">✏️</div>
+                                <div class="admin-btn-icon delete" onclick="deleteProject('${p.id}')" title="Delete">🗑️</div>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            window.editProject = function(id) {
+                if (!id) {
+                    alert('Proyek ini tidak memiliki ID (Dibuat sebelum sistem ID ada). Harap hapus barisnya secara manual di Google Sheets.');
+                    return;
+                }
+                const p = adminProjects.find(proj => proj.id === id);
+                if(!p) return;
+                
+                editingId = p.id;
+                document.getElementById('pTitle').value = p.title;
+                document.getElementById('pCategory').value = p.category;
+                document.getElementById('pFilter').value = p.filter;
+                document.getElementById('pShortDesc').value = p.shortDesc;
+                document.getElementById('pFullDesc').value = p.description;
+                document.getElementById('pThumbnail').value = p.thumbnail;
+                document.getElementById('pImages').value = (p.images || []).join('\n');
+                document.getElementById('pClient').value = p.client;
+                document.getElementById('pTools').value = p.tools;
+                document.getElementById('pDuration').value = p.duration;
+
+                submitBtn.innerText = 'Update Project';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            window.deleteProject = async function(id) {
+                if (!id) {
+                    alert('Proyek ini tidak memiliki ID (Dibuat sebelum sistem ID ada). Harap hapus sel/baris ini dari Google Sheets langsung.');
+                    return;
+                }
+                if(!confirm("Anda yakin ingin menghapus proyek ini secara permanen?")) return;
+                
+                try {
+                    projectsTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">Deleting...</td></tr>';
+                    const response = await fetch(WEB_APP_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ action: 'delete', id: id })
+                    });
+                    if (response.ok) {
+                        fetchProjects();
+                    } else {
+                        throw new Error("Gagal menghapus");
+                    }
+                } catch(err) {
+                    alert("Gagal menghapus proyek, periksa koneksi.");
+                    fetchProjects();
+                }
+            };
+
+            function resetFormState() {
+                portfolioForm.reset();
+                editingId = null;
+                submitBtn.innerText = 'Save Project';
+            }
+
+            clearFormBtn.addEventListener('click', () => {
+                resetFormState();
+                successMessage.style.display = 'none';
+            });
+
+            function showMessage(msg, isSuccess) {
+                successMessage.style.display = 'block';
+                successMessage.innerHTML = msg;
+                if(isSuccess) {
+                    successMessage.style.color = '#10b981';
+                    successMessage.style.borderColor = '#10b981';
+                    successMessage.style.background = 'rgba(16, 185, 129, 0.1)';
+                } else {
+                    successMessage.style.color = '#ef4444';
+                    successMessage.style.borderColor = '#ef4444';
+                    successMessage.style.background = 'rgba(239, 68, 68, 0.1)';
+                }
+                setTimeout(() => { successMessage.style.display = 'none'; }, 4000);
+            }
+
+            // --- Form Submit Logic ---
+            portfolioForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const galleryUrls = document.getElementById('pImages').value
+                    .split('\n')
+                    .map(url => url.trim())
+                    .filter(url => url.length > 0);
+
+                const projectData = {
+                    title: document.getElementById('pTitle').value,
+                    category: document.getElementById('pCategory').value,
+                    filter: document.getElementById('pFilter').value,
+                    shortDesc: document.getElementById('pShortDesc').value,
+                    description: document.getElementById('pFullDesc').value,
+                    thumbnail: document.getElementById('pThumbnail').value,
+                    images: galleryUrls,
+                    client: document.getElementById('pClient').value,
+                    tools: document.getElementById('pTools').value,
+                    duration: document.getElementById('pDuration').value
+                };
+
+                let payload = { action: 'create', ...projectData };
+                if (editingId) {
+                    payload = { action: 'update', id: editingId, ...projectData };
+                }
+
+                const originalText = submitBtn.innerText;
+                submitBtn.innerText = 'Saving...';
+                actualSubmitBtn.disabled = true;
+
+                try {
+                    const response = await fetch(WEB_APP_URL, {
+                        method: 'POST',
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        showMessage(`<strong>Success!</strong> Project ${editingId ? 'updated' : 'saved'} successfully.`, true);
+                        resetFormState();
+                        fetchProjects(); // Refresh the list
+                    } else {
+                        throw new Error('Server error');
+                    }
+                } catch (error) {
+                    console.error("Error submitting:", error);
+                    showMessage('<strong>Error!</strong> Failed to process request.', false);
+                } finally {
+                    if(!editingId) submitBtn.innerText = 'Save Project';
+                    else submitBtn.innerText = 'Update Project';
+                    actualSubmitBtn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

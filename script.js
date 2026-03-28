@@ -122,13 +122,33 @@ function renderServices(services) {
 // ============================================
 let projects = [];
 
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby0GIERJt_gUgW6za9bsTWBGv4d5p8dLXZU1Ipxi3EbM0laxbuuPPPD6G6_t5SV3YNQ/exec';
+
+// Helper to convert Google Drive share links to direct image links
+function getDirectImageUrl(url) {
+    if (!url) return '';
+    try {
+        const driveRegex1 = /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/;
+        const driveRegex2 = /drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/;
+        
+        let match = url.match(driveRegex1) || url.match(driveRegex2);
+        if (match && match[1]) {
+            // Using lh3.googleusercontent.com is more stable for embedding images
+            return `https://lh3.googleusercontent.com/d/${match[1]}`;
+        }
+    } catch(e) {}
+    return url;
+}
+
 async function loadProjects() {
     try {
-        const res = await fetch('data/projects.json');
-        projects = await res.json();
+        const sheetRes = await fetch(WEB_APP_URL);
+        const sheetProjects = await sheetRes.json();
+        
+        projects = sheetProjects.reverse();
         renderPortfolio();
     } catch (err) {
-        console.error('Failed to load projects:', err);
+        console.error('Failed to load projects from API:', err);
     }
 }
 
@@ -139,7 +159,7 @@ function renderPortfolio() {
     grid.innerHTML = projects.map((p, i) => `
         <div class="portfolio-item reveal cyber-card" data-category="${p.filter}" data-delay="${i * 100}">
             <div class="portfolio-img-wrap">
-                <img src="${p.thumbnail}" alt="${p.title}" loading="lazy">
+                <img src="${getDirectImageUrl(p.thumbnail)}" alt="${p.title}" loading="lazy">
                 <div class="portfolio-overlay">
                     <div class="overlay-content">
                         <span class="overlay-category">${p.category}</span>
@@ -773,7 +793,7 @@ function openModal(index) {
     // Build slider images
     const track = document.getElementById('sliderTrack');
     track.innerHTML = currentImages.map(src =>
-        `<img src="${src}" alt="${project.title}" loading="lazy">`
+        `<img src="${getDirectImageUrl(src)}" alt="${project.title}" loading="lazy">`
     ).join('');
     track.style.transform = 'translateX(0)';
 
