@@ -142,7 +142,7 @@ function getDirectImageUrl(url) {
 
 async function loadProjects() {
     try {
-        const sheetRes = await fetch(WEB_APP_URL);
+        const sheetRes = await fetch(WEB_APP_URL + '?t=' + Date.now());
         const sheetProjects = await sheetRes.json();
         
         projects = sheetProjects.reverse();
@@ -157,7 +157,7 @@ function renderPortfolio() {
     if (!grid || projects.length === 0) return;
 
     grid.innerHTML = projects.map((p, i) => `
-        <div class="portfolio-item reveal cyber-card" data-category="${p.filter}" data-delay="${i * 100}">
+        <div class="portfolio-item cyber-card" style="opacity: 1 !important; visibility: visible !important;" data-category="${p.filter}" data-delay="${i * 100}">
             <div class="portfolio-img-wrap">
                 <img src="${getDirectImageUrl(p.thumbnail)}" alt="${p.title}" loading="lazy">
                 <div class="portfolio-overlay">

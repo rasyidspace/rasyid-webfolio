@@ -255,7 +255,7 @@
             async function fetchProjects() {
                 projectsTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">Loading projects...</td></tr>';
                 try {
-                    const res = await fetch(WEB_APP_URL);
+                    const res = await fetch(WEB_APP_URL + '?t=' + Date.now());
                     const data = await res.json();
                     adminProjects = data.reverse();
                     renderTable();
